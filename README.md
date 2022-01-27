@@ -1,2 +1,2 @@
 # pulumi-litrepublic-www-dev
-Holds Pulumi assets to deploy and manage the development environment of Lit Republic web services.
+This project is intended as a guide to setting up and deploying web stacks through Pulumi using Kubernetes and locally provisioned resources.
