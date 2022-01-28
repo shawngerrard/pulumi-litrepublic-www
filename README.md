@@ -85,7 +85,7 @@ We'll need to enable remote SSH access to provide
 1. Run the following command on the server to install Pulumi CLI.
 ```curl -fsSL https://get.pulumi.com | sh```
 
-### Create a Pulumi Kubernetes provider project
+### Create a Pulumi Kubernetes provider project environment
 
 > **Note:** If you've just cloned a Pulumi project, or wish to switch between stacks, use the following command to initialize the Pulumi stack you want. You'll then be asked for the fully-qualified name of the stack.
 ```pulumi stack init```
@@ -94,31 +94,14 @@ We'll need to enable remote SSH access to provide
 ```mkdir dev && cd dev```
 ```pulumi new kubernetes-python```
 
-<hr />
+2. Initialize a Python virtual environment to isolate project resources.
+```python3 -m venv venv```
 
-### Define an Nginx deployment
+3. Activate the virtual environment.
+```source venv/bin/activate```
 
-1. Open **main.py** and use Python to define a deployment of Nginx into your Kubernetes cluster. 
-
-```
-import pulumi
-from pulumi_kubernetes.apps.v1 import Deployment
-
-app_labels = { "app": "nginx" }
-
-deployment = Deployment(
-    "nginx",
-    spec={
-        "selector": { "match_labels": app_labels },
-        "replicas": 1,
-        "template": {
-            "metadata": { "labels": app_labels },
-            "spec": { "containers": [{ "name": "nginx", "image": "nginx" }] }
-        }
-    })
-
-pulumi.export("name", deployment.metadata["name"])
-```
+4. Install project dependencies into the virtual environment.
+```pip install -r requirements.txt```
 
 <hr />
 
