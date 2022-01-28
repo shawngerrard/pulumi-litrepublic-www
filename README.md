@@ -7,7 +7,12 @@ This project is intended as a guide to setting up and deploying web stacks throu
         - Create SSH key
             ```ssh-keygen -t rsa -b 4096 -C "<username>@hostname" -f ~/.ssh/<keyname>```
         - Copy SSH public key to server and install into authorized_keys
-            ```ssh-copy-id -i ~/.ssh/<key/filename> <server username>@<server hostname/ext. ip>```
+            ```ssh-copy-id -i ~/.ssh/<key/filename>.pub <server username>@<server hostname/ext. ip> -p <external port number>```
+        > Log into the host and use the following code to remove **a single** public key from the host that may have erroneously been added:
+            ```sed -i.bak '/REGEX_MATCHING_KEY/d' ~/.ssh/authorized_keys```
+
+        > Log into the host and use the following code to remove **multiple** public keys from the host that may have erroneously been added:
+            ```sed -i.bak '/REGEX1/d; /REGEX2/d' ~/.ssh/authorized_keys```
     - Secure SSH config in RPI
         > **Reference:** https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings and access the file using the snippet below.
         ```sudo nano /etc/ssh/sshd_config```
@@ -22,4 +27,3 @@ This project is intended as a guide to setting up and deploying web stacks throu
             ```ssh -p <external port number> <server username>@<server hostname/ext. ip>```
     - Monitor logs on the server for any dodgy port knocks
         ```sudo cat /var/log/auth.log```
-    
