@@ -97,10 +97,13 @@ We'll need to enable remote SSH access to provide
 2. Initialize a Python virtual environment to isolate project resources.
 ```python3 -m venv venv```
 
-3. Activate the virtual environment.
+3. Install and update wheel so that we can install dependent Pulumi modules into our virtual environments.
+```pip3 install wheel --upgrade```
+
+4. Activate the virtual environment.
 ```source venv/bin/activate```
 
-4. Install project dependencies into the virtual environment.
+5. Install project dependencies into the virtual environment.
 ```pip install -r requirements.txt```
 
 <hr />
