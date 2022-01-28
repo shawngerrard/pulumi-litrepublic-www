@@ -96,6 +96,32 @@ We'll need to enable remote SSH access to provide
 
 <hr />
 
+### Define an Nginx deployment
+
+1. Open **main.py** and use Python to define a deployment of Nginx into your Kubernetes cluster. 
+
+```
+import pulumi
+from pulumi_kubernetes.apps.v1 import Deployment
+
+app_labels = { "app": "nginx" }
+
+deployment = Deployment(
+    "nginx",
+    spec={
+        "selector": { "match_labels": app_labels },
+        "replicas": 1,
+        "template": {
+            "metadata": { "labels": app_labels },
+            "spec": { "containers": [{ "name": "nginx", "image": "nginx" }] }
+        }
+    })
+
+pulumi.export("name", deployment.metadata["name"])
+```
+
+<hr />
+
 
 
 ### Instructions for uninstalling Pulumi
