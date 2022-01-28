@@ -1,0 +1,6 @@
+name: litrepublic-www-dev
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Manages the Lit Republic e-commerce infrastructure.

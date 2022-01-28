@@ -1,4 +1,4 @@
-# pulumi-litrepublic-www-dev
+# pulumi-litrepublic-www
 This project is intended as a guide to setting up and deploying web stacks through Pulumi using Kubernetes and locally provisioned resources.
 
 
@@ -87,8 +87,14 @@ We'll need to enable remote SSH access to provide
 
 ### Create a Pulumi Kubernetes provider project
 
-1. Create a new Pulumi stack. After the following command, you'll be prompted to enter a name to identify your new stack. I'm using **litrepublic-www-dev**.
+> **Note:** If you've just cloned a Pulumi project, use the following command to use the files to initialize the Pulumi stack. You'll then be asked for the fully-qualified name of the stack.
 ```pulumi stack init```
+
+1. Create a new Pulumi project and scaffold in the Kubernetes provider modules.
+```mkdir dev && cd dev```
+```pulumi new kubernetes-python```
+
+<hr />
 
 
 
