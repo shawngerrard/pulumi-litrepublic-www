@@ -87,7 +87,7 @@ We'll need to enable remote SSH access to provide
 
 ### Create a Pulumi Kubernetes provider project
 
-> **Note:** If you've just cloned a Pulumi project, use the following command to use the files to initialize the Pulumi stack. You'll then be asked for the fully-qualified name of the stack.
+> **Note:** If you've just cloned a Pulumi project, or wish to switch between stacks, use the following command to initialize the Pulumi stack you want. You'll then be asked for the fully-qualified name of the stack.
 ```pulumi stack init```
 
 1. Create a new Pulumi project and scaffold in the Kubernetes provider modules.
