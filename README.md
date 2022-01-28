@@ -44,3 +44,27 @@ This project is intended as a guide to setting up and deploying web stacks throu
 ```sudo cat /var/log/auth.log```
 
 <hr />
+
+
+## Install Kubectl on Server
+
+
+### Instructions for installing Kubectl
+
+<hr />
+
+
+## Install Helm on Server
+
+
+### Instructions for installing Helm
+
+<hr />
+
+
+## Install Pulumi on Server
+
+
+### Instructions for installing Pulumi
+
+<hr />
