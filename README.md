@@ -47,14 +47,16 @@ We'll need to enable remote SSH access to provide
 
 ### Enable SSH remote Git access from server
 
-1. Create an SSH key on the server.
+1. Create an SSH key on the server (see above example).
 2. Copy the public key contents, log in to your Github account, and enter the key data into a new PGP key entry under your Github account in _Settings/Encryption Keys/Add New Key_
 ```cat ~/.ssh/<public keyname>.pub | xclip```
 3. Ensure the SSH-Agent has started and the key has been added to your agent.
 ```eval `ssh-agent` && ssh-add ~/.ssh/<key/filename>```
 3. Test the connection.
 ```ssh -T git@github.com```
-4. Clone this repository.
+4. Update git config with identity values.
+```git config --global user.email "<email address>" && git config --global user.name "<user>@<hostname>"```
+5. Clone this repository.
 ```git clone git@github.com:shawngerrard/pulumi-litrepublic-www-dev.git```
 
 <hr />
