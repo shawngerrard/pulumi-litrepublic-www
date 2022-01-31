@@ -90,6 +90,9 @@ We'll need to enable remote SSH access to provide
 > **Note:** If you've just cloned a Pulumi project, or wish to switch between stacks, use the following command to initialize the Pulumi stack you want. You'll then be asked for the fully-qualified name of the stack.
 ```pulumi stack init```
 
+> **Note:** You can avoid prompts to indicate which stack you want to work on my setting the workspace to the stack
+```pulumi stack select <stack name>```
+
 1. Create a new Pulumi project and scaffold in the Kubernetes provider modules.
 ```mkdir dev && cd dev```
 ```pulumi new kubernetes-python```
