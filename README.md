@@ -78,10 +78,10 @@ We'll need to enable remote SSH access to provide
 <hr />
 
 
-## Install Pulumi CLI on Server
+## Install and Configure Pulumi CLI on Server
 
 
-### Instructions for installing Pulumi
+### Download and install Pulumi CLI
 1. Run the following command on the server to install Pulumi CLI.
 ```curl -fsSL https://get.pulumi.com | sh```
 
