@@ -46,7 +46,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
     ```shutdown -h now``` 
     4. Once the RPI has shut down, remove the SD card and insert the USB flash drive containing our Ubuntu image.
 
-6. Once you've traversed through the initial Ubuntu configuration UI, **repeat steps 1 and 2** above.
+6. Once you've traversed through the initial Ubuntu configuration UI, **repeat steps 1 to 4** above.
 
 <hr />
 
