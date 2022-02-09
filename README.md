@@ -2,6 +2,31 @@
 This project is intended as a guide to setting up and deploying web stacks through Pulumi using Kubernetes and locally provisioned resources.
 
 
+## Preparing the Raspberry Pi
+Our primary node/computer for our project will be a Raspberry Pi 4b, and we'll install a USB-bootable ARM64 Linux Operating System into it.
+
+### Pre-requisites
+Aside from physical hardware, you'll need to prepare the following:
+1. Download and install the official [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
+2. Write an Operating System image to both an SD card and a USB flash drive.
+    > **Note:** For RPI 4B models older purchased during or after 2021, you should only need to write the image to a USB drive as USB boot is enabled in the RPI 4b EEPROM boot order by default.
+    - The Raspberry Pi OS is the recommended general purpose OS built specifically for use with Raspberry Pi hardware specifications. However, we will use the *"Other general-purpose OS"* option to select a 64-bit Ubuntu Desktop (currently 21.10).
+    > **Note:** I recommend [downloading the image](https://ubuntu.com/download/raspberry-pi) first and using the *"Use custom"* option in the RPI Imager to select the downloaded image. This will significantly increase performance during image writing.
+3. When the image has been written to the SD card, put it into the SD reader on the RPI and power it up!
+
+<hr />
+
+### Ubuntu Desktop Installation and Configuration
+1. The Ubuntu bootstrapper will take you through the normal installation options and steps - be sure to make note of the username and password you've set! The installation will take several minutes to complete. 
+2. Once installed, log in and open your applications. Make sure to mark the *Terminal* application as a favourite, which will add it to your quick-access toolbar.
+3. Open up *Terminal* and use the following commands to configure your OS environment:
+    - Install net tools to obtain and/or verify network interface configurations:
+    ```sudo apt install net-tools```
+    - Hi
+    ```Hi```
+
+<hr />
+
 ## Remote access
 We'll need to enable remote SSH access to provide 
 
@@ -10,16 +35,16 @@ We'll need to enable remote SSH access to provide
     ```ssh-keygen -t rsa -b 4096 -C "<username>@hostname" -f ~/.ssh/<keyname>```
 2. Copy SSH public key to server and install into authorized_keys.
     ```ssh-copy-id -i ~/.ssh/<key/filename>.pub <server username>@<server hostname/ext. ip> -p <external port number>```
-> Log into the host and use the following code to remove **a single** public key from the host that may have erroneously been added:
+> **Note:** Log into the host and use the following code to remove **a single** public key from the host that may have erroneously been added:
     ```sed -i.bak '/REGEX_MATCHING_KEY/d' ~/.ssh/authorized_keys```
 
-> Log into the host and use the following code to remove **multiple** public keys from the host that may have erroneously been added:
+> **Note:** Log into the host and use the following code to remove **multiple** public keys from the host that may have erroneously been added:
     ```sed -i.bak '/REGEX1/d; /REGEX2/d' ~/.ssh/authorized_keys```
 
 <hr />
 
 ### Secure SSH config in RPI
-> **Reference:** https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings and access the file using the snippet below.
+> **Reference:** [https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings](https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings) and access the file using the snippet below.
 ```sudo nano /etc/ssh/sshd_config```
 
 1. Open SSH config and follow the referenced link above to tweak settings.
@@ -27,10 +52,10 @@ We'll need to enable remote SSH access to provide
 <hr />
 
 ### Enable SSH remote access on a specific port at the internet gateway.
-1. Log in to router
-2. Open external port <PORT NUMBER> on RPI external IP 124.248.134.230.
+1. Log in to router.
+2. Open an external port <PORT NUMBER> on RPI external IP 124.248.134.230.
 3. Forward to internal port 22.
-4. 
+4. Apply changes.
 
 <hr />
 
