@@ -31,7 +31,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
 1. First, ensure all Apt packages are up-to-date.
 ```sudo apt-get update```
 2. Install *net-tools* to obtain and/or verify network interface configurations.
-```sudo apt install net-tools```
+```sudo apt-get install net-tools```
 3. Install *raspi-config* via Apt so we can tweak the Raspberry Pi system and boot configuration.
 ```sudo apt-get install raspi-config```
 4. Ensure that the EEPROM firmware is all up-to-date.
