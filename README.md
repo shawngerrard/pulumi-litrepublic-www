@@ -11,6 +11,7 @@ Aside from physical hardware, you'll need to prepare the following:
 2. Write an Operating System image to both an SD card and a USB flash drive.
     > **Note:** For RPI 4B models older purchased during or after 2021, you should only need to write the image to a USB drive as USB boot is enabled in the RPI 4b EEPROM boot order by default.
     - The Raspberry Pi OS is the recommended general purpose OS built specifically for use with Raspberry Pi hardware specifications. However, we will use the *"Other general-purpose OS"* option to select a 64-bit Ubuntu Desktop (currently 21.10).
+
     > **Note:** I recommend [downloading the image](https://ubuntu.com/download/raspberry-pi) first and using the *"Use custom"* option in the RPI Imager to select the downloaded image. This will significantly increase performance during image writing.
 3. When the image has been written to the SD card, put it into the SD reader on the RPI and power it up!
 
@@ -22,9 +23,10 @@ Aside from physical hardware, you'll need to prepare the following:
 
 <hr />
 
-## Ubuntu Configuration and Enabling SSH Remote access
+## Ubuntu Configuration and Remote Access
 We'll need to enable remote SSH access so that we can perform any maintenance remotely.
 
+### Configure Ubuntu Boot Behaviour
 Open up *Terminal* and use the following commands to configure your OS environment:
 1. First, ensure all Apt packages are up-to-date.
 ```sudo apt-get update```
@@ -45,30 +47,36 @@ Open up *Terminal* and use the following commands to configure your OS environme
     4. Once the RPI has shut down, remove the SD card and insert the USB flash drive containing our Ubuntu image.
 
 6. Once you've traversed through the initial Ubuntu configuration UI, **repeat steps 1 and 2** above.
-7. Check that the SSH service is running.
+
+<hr />
+
+### Enable the SSH Service
+1. Check that the SSH service is running.
 ```sudo systemctl status sshd```
-8. If it isn't, start the SSH service and tweak the boot order to enable USB booting.
+2. If it isn't, start the SSH service and tweak the boot order to enable USB booting.
     - Open the Raspberry Pi configuration manager.
     ```sudo raspi-config```
     - Select *Interface Options* and enable the SSH service.
-9. 
 
+<hr />
 
-### Enable SSH authentication 
+### Enable SSH key-based authentication 
 1. Create SSH key
     ```ssh-keygen -t rsa -b 4096 -C "<username>@hostname" -f ~/.ssh/<keyname>```
 2. Copy SSH public key to server and install into authorized_keys.
     ```ssh-copy-id -i ~/.ssh/<key/filename>.pub <server username>@<server hostname/ext. ip> -p <external port number>```
-> **Note:** Log into the host and use the following code to remove **a single** public key from the host that may have erroneously been added:
+> **Note:** Initial host key verification may fail if you've connected to this host before, and the server has a static local IP. We will need to remove the host key entry in our *known_hosts* file with ```ssh-keygen -f "/path/to/known_hosts/file" -R "<RPI4 node IP address>"```. 
+
+> **Note:** Use the following code on the host machine to remove **a single** public key from the host that may have erroneously been added:
     ```sed -i.bak '/REGEX_MATCHING_KEY/d' ~/.ssh/authorized_keys```
 
-> **Note:** Log into the host and use the following code to remove **multiple** public keys from the host that may have erroneously been added:
+> **Note:** Use the following code on the host machine to remove **multiple** public keys from the host that may have erroneously been added:
     ```sed -i.bak '/REGEX1/d; /REGEX2/d' ~/.ssh/authorized_keys```
 
 <hr />
 
 ### Secure SSH config in RPI
-> **Reference:** [https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings](https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings) and access the file using the snippet below.
+> **Note:** Reference [https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings](https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings) and access the file using the snippet below.
 ```sudo nano /etc/ssh/sshd_config```
 
 1. Open SSH config and follow the referenced link above to tweak settings.
