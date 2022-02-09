@@ -57,6 +57,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
     - Open the Raspberry Pi configuration manager.
     ```sudo raspi-config```
     - Select *Interface Options* and enable the SSH service.
+> **Note:** If you have problems starting the service, it's likely it hasn't been installed on the host machine: ```sudo apt-get install openssh-server```
 
 <hr />
 
@@ -80,6 +81,8 @@ Open up *Terminal* and use the following commands to configure your OS environme
 ```sudo nano /etc/ssh/sshd_config```
 
 1. Open SSH config and follow the referenced link above to tweak settings.
+2. Once the settings have been configured, restart the SSH service.
+```sudo systemctl restart sshd```
 
 <hr />
 
