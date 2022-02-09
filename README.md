@@ -16,19 +16,43 @@ Aside from physical hardware, you'll need to prepare the following:
 
 <hr />
 
-### Ubuntu Desktop Installation and Configuration
+### Ubuntu & SSH Installation and Configuration
 1. The Ubuntu bootstrapper will take you through the normal installation options and steps - be sure to make note of the username and password you've set! The installation will take several minutes to complete. 
 2. Once installed, log in and open your applications. Make sure to mark the *Terminal* application as a favourite, which will add it to your quick-access toolbar.
-3. Open up *Terminal* and use the following commands to configure your OS environment:
-    - Install net tools to obtain and/or verify network interface configurations:
-    ```sudo apt install net-tools```
-    - Hi
-    ```Hi```
 
 <hr />
 
-## Remote access
-We'll need to enable remote SSH access to provide 
+## Ubuntu Configuration and Enabling SSH Remote access
+We'll need to enable remote SSH access so that we can perform any maintenance remotely.
+
+Open up *Terminal* and use the following commands to configure your OS environment:
+1. First, ensure all Apt packages are up-to-date.
+```sudo apt-get update```
+2. Install *net-tools* to obtain and/or verify network interface configurations.
+```sudo apt install net-tools```
+3. Install *raspi-config* via Apt so we can tweak the Raspberry Pi system and boot configuration.
+```sudo apt-get install raspi-config```
+4. Ensure that the EEPROM firmware is all up-to-date.
+```sudo rpi-eeprom-update```
+5. Update the RPI configuration.
+
+    1. Open the RPI configuration manager.
+    ```sudo raspi-config```
+    2. Select *Advanced Options > Boot Order* and select *USB Boot*.
+    3. Commit changes and power down the RPI.
+    > **Note:** It's important that the internal power-off process completes gracefully, so that the updates from the configuration manager can be applied.
+    ```shutdown -h now``` 
+    4. Once the RPI has shut down, remove the SD card and insert the USB flash drive containing our Ubuntu image.
+
+6. Once you've traversed through the initial Ubuntu configuration UI, **repeat steps 1 and 2** above.
+7. Check that the SSH service is running.
+```sudo systemctl status sshd```
+8. If it isn't, start the SSH service and tweak the boot order to enable USB booting.
+    - Open the Raspberry Pi configuration manager.
+    ```sudo raspi-config```
+    - Select *Interface Options* and enable the SSH service.
+9. 
+
 
 ### Enable SSH authentication 
 1. Create SSH key
