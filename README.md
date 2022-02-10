@@ -124,7 +124,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
 <hr />
 
 ED NOTE:
-> Do we need this step?? Install Helm via Pulumi modules????
+> Do we need this step?? Install Kubectl via Pulumi modules????
 ## Install Kubectl on Server
 
 
@@ -171,6 +171,7 @@ ED NOTE:
 4. Activate the virtual environment.
 ```source venv/bin/activate```
 
+> **Tip:** Before executing the next command, ensure _requirements.txt_ is up to date with the applications/modules you want to install
 5. Install project dependencies into the virtual environment.
 ```pip install -r requirements.txt```
 
