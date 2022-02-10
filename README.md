@@ -19,11 +19,13 @@ Aside from physical hardware, you'll need to prepare the following:
 
 <hr />
 
+
 ### Ubuntu & SSH Installation and Configuration
 1. The Ubuntu bootstrapper will take you through the normal installation options and steps - be sure to make note of the username and password you've set! The installation will take several minutes to complete. 
 2. Once installed, log in and open your applications. Make sure to mark the *Terminal* application as a favourite, which will add it to your quick-access toolbar.
 
 <hr />
+
 
 ## Ubuntu Configuration and Remote Access
 We'll need to enable remote SSH access so that we can perform any maintenance remotely.
@@ -52,6 +54,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 <hr />
 
+
 ### Enable the SSH Service
 1. Check that the SSH service is running.
 ```sudo systemctl status sshd```
@@ -62,6 +65,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
 > **Note:** If you have problems starting the service, it's likely it hasn't been installed on the host machine: ```sudo apt-get install openssh-server```
 
 <hr />
+
 
 ### Enable SSH key-based authentication 
 1. Create SSH key
@@ -78,6 +82,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 <hr />
 
+
 ### Secure SSH config in RPI
 > **Note:** Reference [https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings](https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings) and access the SSH configuration file using the snippet below.
 ```sudo nano /etc/ssh/sshd_config```
@@ -88,6 +93,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 <hr />
 
+
 ### Enable SSH remote access on a specific port at the internet gateway.
 1. Log in to router.
 2. Open an external port <PORT NUMBER> on RPI external IP 124.248.134.230.
@@ -96,16 +102,19 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 <hr />
 
+
 ### Test connection
 1. Connect to the host by specifying the port at which the host accepts SSH traffic.
 ```ssh -p <external port number> <server username>@<server hostname/ext. ip>```
 
 <hr />
 
+
 ### Monitor logs on the server for any dodgy port knocks
 ```sudo cat /var/log/auth.log```
 
 <hr />
+
 
 ### Enable SSH remote Git access from server
 
@@ -122,6 +131,27 @@ Open up *Terminal* and use the following commands to configure your OS environme
 ```git clone git@github.com:shawngerrard/pulumi-litrepublic-www-dev.git```
 
 <hr />
+
+
+## Install Python 
+We'll be using Python to manage and maintain our Pulumi code.
+
+To install Python:
+```sudo apt install python3-venv python3-pip```
+
+### Instructions for installing Kubernetes (K8S)
+
+
+<hr />
+
+
+## Install Kubernetes (K8S) on Server
+
+
+### Instructions for installing Kubernetes (K8S)
+
+<hr />
+
 
 ED NOTE:
 > Do we need this step?? Install Kubectl via Pulumi modules????
@@ -184,4 +214,14 @@ From the official [Pulumi documentation](https://www.pulumi.com/docs/get-started
 
 > To uninstall Pulumi, remove the .pulumi folder from your home directory. If you installed Pulumi manually, you should also remove the pulumi folder that was created.
 
+<hr />
+
+
+## Useful Applications 
+Other applications that may be useful to install:
+
+ - To manage source control: Git.
+ ```sudo apt install git ```
+
+ - 
 <hr />
