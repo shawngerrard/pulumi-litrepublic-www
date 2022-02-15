@@ -35,21 +35,33 @@ We'll need to enable remote SSH access so that we can perform any maintenance re
 ### Configure Ubuntu Boot Behaviour
 Open up *Terminal* and use the following commands to configure your OS environment:
 1. First, ensure all Apt packages are up-to-date.
-```sudo apt-get update```
+```
+sudo apt-get update
+```
 2. Install *net-tools* to obtain and/or verify network interface configurations.
-```sudo apt-get install net-tools```
+```
+sudo apt-get install net-tools
+```
 3. Install *raspi-config* via Apt so we can tweak the Raspberry Pi system and boot configuration.
-```sudo apt-get install raspi-config```
+```
+sudo apt-get install raspi-config
+```
 4. Ensure that the EEPROM firmware is all up-to-date.
-```sudo rpi-eeprom-update```
+```
+sudo rpi-eeprom-update
+```
 5. Update the RPI configuration.
 
     1. Open the RPI configuration manager.
-    ```sudo raspi-config```
+    ```
+    sudo raspi-config
+    ```
     2. Select *Advanced Options > Boot Order* and select *USB Boot*.
     3. Commit changes and power down the RPI.
     > **Note:** It's important that the internal power-off process completes gracefully, so that the updates from the configuration manager can be applied.
-    ```shutdown -h now``` 
+    ```
+    shutdown -h now
+    ``` 
     4. Once the RPI has shut down, remove the SD card and insert the USB flash drive containing our Ubuntu image.
 
 6. Once you've traversed through the initial Ubuntu configuration UI, **repeat steps 1 to 4** above.
@@ -59,22 +71,30 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 ### Enable the SSH Service
 1. Check that the SSH service is running.
-```sudo systemctl status sshd```
+```
+sudo systemctl status sshd
+```
 2. If it isn't, start the SSH service and tweak the boot order to enable USB booting.
     - Open the Raspberry Pi configuration manager.
-    ```sudo raspi-config```
+    ```
+    sudo raspi-config
+    ```
     - Select *Interface Options* and enable the SSH service.
-> **Note:** If you have problems starting the service, it's likely it hasn't been installed on the host machine: ```sudo apt-get install openssh-server```
+> **Note:** If you have problems starting the service, it's likely it hasn't been installed on the host machine: `sudo apt-get install openssh-server`
 
 <hr />
 
 
 ### Enable SSH key-based authentication 
 1. Create SSH key
-    ```ssh-keygen -t rsa -b 4096 -C "<username>@hostname" -f ~/.ssh/<keyname>```
+    ```
+    ssh-keygen -t rsa -b 4096 -C "<username>@hostname" -f ~/.ssh/<keyname>
+    ```
 2. Copy SSH public key to server and install into authorized_keys.
-    ```ssh-copy-id -i ~/.ssh/<key/filename>.pub <server username>@<server hostname/ext. ip> -p <external port number>```
-> **Note:** Initial host key verification may fail if you've connected to this host before, and the server has a static local IP. We will need to remove the host key entry in our *known_hosts* file with ```ssh-keygen -f "/path/to/known_hosts/file" -R "<RPI4 node IP address>"```. 
+    ```
+    ssh-copy-id -i ~/.ssh/<key/filename>.pub <server username>@<server hostname/ext. ip> -p <external port number>
+    ```
+> **Note:** Initial host key verification may fail if you've connected to this host before, and the server has a static local IP. We will need to remove the host key entry in our *known_hosts* file with `ssh-keygen -f "/path/to/known_hosts/file" -R "<RPI4 node IP address>"`. 
 
 > **Note:** Use the following code on the host machine to remove **a single** public key from the host that may have erroneously been added:
     ```sed -i.bak '/REGEX_MATCHING_KEY/d' ~/.ssh/authorized_keys```
@@ -86,12 +106,10 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 
 ### Secure SSH config in RPI
-> **Note:** Reference [https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings](https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings) and access the SSH configuration file using the snippet below.
-```sudo nano /etc/ssh/sshd_config```
+> **Note:** Reference [https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings](https://webdock.io/en/docs/how-guides/security-guides/ssh-security-configuration-settings) and access the SSH configuration file using `sudo nano /etc/ssh/sshd_config`
 
 1. Open SSH config and follow the referenced link above to tweak settings.
-2. Once the settings have been configured, restart the SSH service.
-```sudo systemctl restart sshd```
+2. Once the settings have been configured, restart the SSH service with `sudo systemctl restart sshd`
 
 <hr />
 
@@ -106,14 +124,19 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 
 ### Test connection
-1. Connect to the host by specifying the port at which the host accepts SSH traffic.
-```ssh -p <external port number> <server username>@<server hostname/ext. ip>```
+Connect to the host by specifying the port at which the host accepts SSH traffic.
+```
+ssh -p <external port number> <server username>@<server hostname/ext. ip>
+```
 
 <hr />
 
 
 ### Monitor logs on the server for any dodgy port knocks
-```sudo cat /var/log/auth.log```
+Use the following command to review SSH connection attempts on the network interface of our proposed server.
+```
+sudo cat /var/log/auth.log
+```
 
 <hr />
 
@@ -122,35 +145,49 @@ Open up *Terminal* and use the following commands to configure your OS environme
 
 1. Create an SSH key on the server (see above example).
 2. Copy the public key contents, log in to your Github account, and enter the key data into a new PGP key entry under your Github account in _Settings/Encryption Keys/Add New Key_
-```cat ~/.ssh/<public keyname>.pub | xclip```
+```
+cat ~/.ssh/<public keyname>.pub | xclip
+```
 3. Ensure the SSH-Agent has started and the key has been added to your agent.
-```eval `ssh-agent` && ssh-add ~/.ssh/<key/filename>```
+```
+eval `ssh-agent` && ssh-add ~/.ssh/<key/filename>
+```
 3. Test the connection.
-```ssh -T git@github.com```
+```
+ssh -T git@github.com
+```
 4. Update git config with identity values.
-```git config --global user.email "<email address>" && git config --global user.name "<user>@<hostname>"```
+```
+git config --global user.email "<email address>" && git config --global user.name "<user>@<hostname>"
+```
 5. Clone this repository.
-```git clone git@github.com:shawngerrard/pulumi-litrepublic-www-dev.git```
+```
+git clone git@github.com:shawngerrard/pulumi-litrepublic-www-dev.git
+```
 
 <hr />
 
 
 ## Install Python 
-We'll be using Python to manage and maintain our Pulumi code.
+We'll be using Python to define our infrastructure as code through Pulumi.
 
-To install Python:
-```sudo apt install python3-venv python3-pip```
+To install Python, run:
+```
+sudo apt install python3-venv python3-pip
+```
 
 <hr />
 
 
 ## Install Lightweight Kubernetes (K3S) on Server
-We'll use the lightweight, server install of Kubernetes to save on resources. This will also install ```kubectl``` and ```crictl```.
+We'll use the lightweight, server install of Kubernetes to save on resources. This will also install `kubectl` and `crictl`.
 
 The current intention of this Raspberry Pi is to run it as a dual master/worker node. We'll be able to join in other nodes as required later.
 
 To install K3S, SSH into our proposed node and run:
-```curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --no-deploy traefik```
+```
+curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --no-deploy traefik
+```
 
 <hr />
 
@@ -161,11 +198,15 @@ We'll be using Helm as a package manager for Kubernetes. Later, we'll use Pulumi
 
 ### Install Helm on Server
 To install Helm on our new node, SSH into it and run the following aggregated command:
-```curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && sudo ./get_helm.sh```
+```
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && sudo ./get_helm.sh
+```
 
 ### Add a Local Helm Repo to Server
 Next we'll add a local Helm repository to the Helm space that we've just installed on the server by using the following command:
-```helm repo add litrepublic https://shawngerrard.github.io/helm-charts```
+```
+helm repo add litrepublic https://shawngerrard.github.io/helm-charts
+```
 > **Tip:** An advantage of using a local Helm repository is the ability to control the versioning of the Helm Charts and avoid unforeseen impacts due to any upstream updates.
 
 <hr />
@@ -176,32 +217,48 @@ Next we'll add a local Helm repository to the Helm space that we've just install
 
 ### Download and install Pulumi CLI
 1. Run the following command on the server to install Pulumi CLI.
-```curl -fsSL https://get.pulumi.com | sh```
+```
+curl -fsSL https://get.pulumi.com | sh
+```
 
 ### Create a Pulumi Kubernetes provider project environment
 
 > **Note:** If you've just cloned a Pulumi project, or wish to switch between stacks, use the following command to initialize the Pulumi stack you want. You'll then be asked for the fully-qualified name of the stack.
-```pulumi stack init```
+```
+pulumi stack init
+```
 
 > **Note:** You can avoid prompts to indicate which stack you want to work on by setting the workspace to the stack
-```pulumi stack select <stack name>```
+```
+pulumi stack select <stack name>
+```
 
 1. Create a new Pulumi project and scaffold in the Kubernetes provider modules.
-```mkdir dev && cd dev```
-```pulumi new kubernetes-python```
+```
+mkdir dev && cd dev
+pulumi new kubernetes-python
+```
 
 2. Initialize a Python virtual environment to isolate project resources.
-```python3 -m venv venv```
+```
+python3 -m venv venv
+```
 
 3. Install and update wheel so that we can install dependent Pulumi modules into our virtual environments.
-```pip3 install wheel --upgrade```
+```
+pip3 install wheel --upgrade
+```
 
 4. Activate the virtual environment.
-```source venv/bin/activate```
+```
+source venv/bin/activate
+```
 
 > **Tip:** Before executing the next command, ensure _requirements.txt_ is up to date with the applications/modules you want to install
 5. Install project dependencies into the virtual environment.
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 <hr />
 
@@ -219,7 +276,8 @@ From the official [Pulumi documentation](https://www.pulumi.com/docs/get-started
 Other applications that may be useful to install:
 
  - To manage source control: Git.
- ```sudo apt install git ```
+ ```
+ sudo apt install git
+ ```
 
- - 
 <hr />
