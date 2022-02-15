@@ -184,9 +184,20 @@ We'll use the lightweight, server install of Kubernetes to save on resources. Th
 
 The current intention of this Raspberry Pi is to run it as a dual master/worker node. We'll be able to join in other nodes as required later.
 
+
+### Install K3S
 To install K3S, SSH into our proposed node and run:
 ```
 curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --no-deploy traefik
+```
+
+### Configure K3S
+We'll need to reconfigure our K3S installation so that Pulumi can manage our cluster deployments.
+
+```
+rm -rf ~/.kube
+sudo mkdir -p ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+KUBECONFIG=~/.kube/config
 ```
 
 <hr />
