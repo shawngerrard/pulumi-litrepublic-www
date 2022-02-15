@@ -139,24 +139,20 @@ We'll be using Python to manage and maintain our Pulumi code.
 To install Python:
 ```sudo apt install python3-venv python3-pip```
 
-### Instructions for installing Kubernetes (K8S)
-
-
 <hr />
 
-
-## Install Kubernetes (K8S) on Server
-
-
-### Instructions for installing Kubernetes (K8S)
-
-<hr />
-
-
-ED NOTE:
+__ED NOTE:__
 > Do we need this step?? Install Kubectl via Pulumi modules????
+## Install Lightweight Kubernetes (K3S) on Server
+
+
+### Instructions for installing Lightweight Kubernetes (K3S)
+
+<hr />
+
+
 ## Install Kubectl on Server
-> **Note:** For those using the latest version of **_Ubuntu 21.10_**, vxlan modules were removed from this distribution into a seperate package *(linux-modules-extra-raspi)*. You will need this to ensure flannel can set up your internal cluster mesh network correctly. To install this package, use the command: ```sudo apt-get install linux-modules-extra-raspi```
+> **Note:** For those using the latest version of **_Ubuntu 21.10_**, vxlan modules were removed from this distribution into a seperate package *(linux-modules-extra-raspi)*. You will need this package to ensure flannel can set up your internal cluster mesh network correctly. To install this package, use the command: ```sudo apt-get install linux-modules-extra-raspi``` before continuing with the rest of the instructions.
 
 ### Instructions for installing Kubectl
 
