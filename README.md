@@ -14,6 +14,8 @@ Aside from physical hardware, you'll need to prepare the following:
     
     - The Raspberry Pi OS is the recommended general purpose OS built specifically for use with Raspberry Pi hardware specifications and based upon the Debain Linux distribution. However, we will use the *"Other general-purpose OS"* option to select a 64-bit Ubuntu Desktop (currently 21.10). Please note that you should use a less resource-heavy OS as Desktop distributions may have performance issues related to processing complex graphical environments.
 
+    > **Note:** If using the latest version of **_Ubuntu 21.10_**, vxlan modules were removed from this distribution into a seperate package *(linux-modules-extra-raspi)*. You'll need this package to ensure flannel can set up your internal cluster mesh network correctly. To install this package, use the command: ```sudo apt-get install linux-modules-extra-raspi``` before continuing with the rest of the instructions.
+
     > **Note:** I recommend [downloading the image](https://ubuntu.com/download/raspberry-pi) first and using the *"Use custom"* option in the RPI Imager to select the downloaded image. This will significantly increase performance during image writing.
 3. When the image has been written to the SD card, put it into the SD reader on the RPI and power it up!
 
@@ -141,30 +143,30 @@ To install Python:
 
 <hr />
 
-__ED NOTE:__
-> Do we need this step?? Install Kubectl via Pulumi modules????
+
 ## Install Lightweight Kubernetes (K3S) on Server
+We'll use the lightweight, server install of Kubernetes to save on resources. This will also install ```kubectl``` and ```crictl```.
 
+The current intention of this Raspberry Pi is to run it as a dual master/worker node. We'll be able to join in other nodes as required later.
 
-### Instructions for installing Lightweight Kubernetes (K3S)
-
-<hr />
-
-
-## Install Kubectl on Server
-> **Note:** For those using the latest version of **_Ubuntu 21.10_**, vxlan modules were removed from this distribution into a seperate package *(linux-modules-extra-raspi)*. You will need this package to ensure flannel can set up your internal cluster mesh network correctly. To install this package, use the command: ```sudo apt-get install linux-modules-extra-raspi``` before continuing with the rest of the instructions.
-
-### Instructions for installing Kubectl
+To install K3S, SSH into our proposed node and run:
+```curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --no-deploy traefik```
 
 <hr />
 
 
-ED NOTE:
-> Do we need this step?? Install Helm via Pulumi modules????
-## Install Helm on Server
+## Install Helm
+We'll be using Helm as a package manager for Kubernetes. Later, we'll use Pulumi modules and Python to manipulate the process of deploying Helm Charts.
 
 
-### Instructions for installing Helm
+### Install Helm on Server
+To install Helm on our new node, SSH into it and run the following aggregated command:
+```curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && sudo ./get_helm.sh```
+
+### Add a Local Helm Repo to Server
+Next we'll add a local Helm repository to the Helm space that we've just installed on the server by using the following command:
+```helm repo add litrepublic https://shawngerrard.github.io/helm-charts```
+> **Tip:** An advantage of using a local Helm repository is the ability to control the versioning of the Helm Charts and avoid unforeseen impacts due to any upstream updates.
 
 <hr />
 
