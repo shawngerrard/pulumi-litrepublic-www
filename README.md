@@ -126,7 +126,7 @@ Open up *Terminal* and use the following commands to configure your OS environme
 ED NOTE:
 > Do we need this step?? Install Kubectl via Pulumi modules????
 ## Install Kubectl on Server
-
+> **Note:** For those using the latest version of **_Ubuntu 21.10_**, vxlan modules were removed from this distribution into a seperate package *(linux-modules-extra-raspi)*. You will need this to ensure flannel can set up your internal cluster mesh network correctly. To install this package, use the command: ```sudo apt-get install linux-modules-extra-raspi```
 
 ### Instructions for installing Kubectl
 
