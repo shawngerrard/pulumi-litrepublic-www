@@ -196,7 +196,7 @@ We'll need to reconfigure our K3S installation so that Pulumi can manage our clu
 
 ```
 sudo mkdir -p ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-KUBECONFIG=~/.kube/config
+export KUBECONFIG=~/.kube/config
 ```
 
 <hr />
