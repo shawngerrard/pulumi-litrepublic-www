@@ -3,7 +3,7 @@ This project is intended as a guide to setting up and deploying web stacks throu
 
 
 ## Preparing the Raspberry Pi
-Our primary node/computer for our project will be a Raspberry Pi 4b, and we'll install a USB-bootable ARM64 Linux Operating System into it.
+Our primary node/computer for our project will be a Raspberry Pi 4b, and we'll install a USB-bootable AARCH64 (ARM) Linux Operating System into it.
 
 ### Pre-requisites
 Aside from physical hardware, you'll need to prepare the following:
