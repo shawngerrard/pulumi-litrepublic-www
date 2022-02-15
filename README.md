@@ -203,7 +203,7 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 ```
 
 ### Add a Local Helm Repo to Server
-Next we'll add a local Helm repository to the Helm space that we've just installed on the server by using the following command:
+Next, we'll add a [local Helm repository](https://github.com/shawngerrard/helm-charts) to the Helm space that we've just installed, by using the following command on our node:
 ```
 helm repo add litrepublic https://shawngerrard.github.io/helm-charts
 ```
