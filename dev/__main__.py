@@ -7,13 +7,18 @@ import pulumi
 from pulumi_kubernetes.apps.v1 import Deployment
 from pulumi_kubernetes.core.v1 import Service
 
-# Minikube does not implement services of type `LoadBalancer`; require the user to specify if we're
-# running on minikube, and if so, create only services of type ClusterIP.
+# --
+# Minikube does not implement services of type `LoadBalancer` and so requires the 
+# user to specify if we're running on minikube, and if so, create a ClusterIP service
+#--
+
+# Get the Minikube user setting from the Pulumi configuration
 config = pulumi.Config()
 is_minikube = config.require_bool("isMinikube")
 
+# Set the deployment name 
 app_name = "nginx"
-app_labels = { "app": "nginx" }
+app_labels = { "app": app_name }
 
 # Define an Nginx deployment for ingress control
 deployment = Deployment(
@@ -27,7 +32,7 @@ deployment = Deployment(
         }
     })
 
-# Allocate an IP to the Deployment.
+# Allocate an IP to the Deployment
 frontend = Service(
     app_name,
     metadata={
@@ -39,7 +44,7 @@ frontend = Service(
         "selector": app_labels,
     })
 
-# When "done", this will print the public IP.
+# Get the public IP of the deployment
 result = None
 if is_minikube:
     result = frontend.spec.apply(lambda v: v["cluster_ip"] if "cluster_ip" in v else None)
