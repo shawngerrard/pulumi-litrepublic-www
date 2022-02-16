@@ -195,9 +195,8 @@ curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --no-d
 We'll need to reconfigure our K3S installation so that Pulumi can manage our cluster deployments.
 
 ```
-rm -rf ~/.kube
 sudo mkdir -p ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-KUBECONFIG=~/.kube/config
+export KUBECONFIG=~/.kube/config
 ```
 
 <hr />
