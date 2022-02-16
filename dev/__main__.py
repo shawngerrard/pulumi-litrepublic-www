@@ -12,6 +12,7 @@ from pulumi_kubernetes.core.v1 import Service
 config = pulumi.Config()
 is_minikube = config.require_bool("isMinikube")
 
+app_name = "nginx"
 app_labels = { "app": "nginx" }
 
 # Define an Nginx deployment for ingress control
