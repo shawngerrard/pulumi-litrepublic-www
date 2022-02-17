@@ -19,13 +19,13 @@ config = pulumi.Config()
 is_minikube = config.require_bool("isMinikube")
 
 # Set the deployment name 
-app_name = "nginx"
-app_labels = { "app": app_name }
+#app_name = "nginx"
+#app_labels = { "app": app_name }
 
 nginx_ingress = Chart(
     "nginx-ingress",
     LocalChartOpts(
-        path="~/Documents/helm-charts/charts/nginx-ingress-controller",
+        path="~/Documents/helm-charts/charts/nginx-ingress-controller/charts/common",
     ),
 )
 
