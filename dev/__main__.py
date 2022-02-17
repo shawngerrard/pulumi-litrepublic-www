@@ -6,6 +6,7 @@ Creating a Kubernetes Deployment for Lit Republic web services DEV environment
 import pulumi
 from pulumi_kubernetes.apps.v1 import Deployment
 from pulumi_kubernetes.core.v1 import Service
+from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 # --
 # Minikube does not implement services of type `LoadBalancer` and so requires the 
@@ -13,6 +14,7 @@ from pulumi_kubernetes.core.v1 import Service
 #--
 
 # Get the Minikube user setting from the Pulumi configuration
+# TO DO: Implement writing the isMinikube setting to the config file so that it can be centrally managed here.
 config = pulumi.Config()
 is_minikube = config.require_bool("isMinikube")
 
@@ -20,29 +22,38 @@ is_minikube = config.require_bool("isMinikube")
 app_name = "nginx"
 app_labels = { "app": app_name }
 
-# Define an Nginx deployment for ingress control
-deployment = Deployment(
-    "nginx",
-    spec={
-        "selector": { "match_labels": app_labels },
-        "replicas": 1,
-        "template": {
-            "metadata": { "labels": app_labels },
-            "spec": { "containers": [{ "name": "nginx", "image": "nginx" }] }
-        }
-    })
+nginx_ingress = Chart(
+    "nginx-ingress",
+    LocalChartOpts(
+        path="~/Documents/helm-charts/charts/nginx-ingress-controller",
+    ),
+)
 
-# Allocate an IP to the Deployment
-frontend = Service(
-    app_name,
-    metadata={
-        "labels": deployment.spec["template"]["metadata"]["labels"],
-    },
-    spec={
-        "type": "ClusterIP" if is_minikube else "LoadBalancer",
-        "ports": [{ "port": 80, "target_port": 80, "protocol": "TCP" }],
-        "selector": app_labels,
-    })
+
+# # Define an Nginx deployment for ingress control
+# deployment = Deployment(
+#     app_name,
+#     spec={
+#         "selector": { "match_labels": app_labels },
+#         "replicas": 1,
+#         "template": {
+#             "metadata": { "labels": app_labels },
+#             "spec": { "containers": [{ "name": app_name, "image": app_name }] }
+#         }
+#     })
+
+# # Allocate an IP to the Deployment
+# frontend = Service(
+#     app_name,
+#     metadata={
+#         "labels": deployment.spec["template"]["metadata"]["labels"],
+#     },
+#     spec={
+#         "type": "ClusterIP" if is_minikube else "LoadBalancer",
+#         "ports": [{ "port": 80, "target_port": 80, "protocol": "TCP" }],
+#         "selector": app_labels,
+#     }
+# )
 
 # Get the public IP of the deployment
 result = None
