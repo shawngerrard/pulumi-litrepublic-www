@@ -25,7 +25,7 @@ is_minikube = config.require_bool("isMinikube")
 nginx_ingress = Chart(
     "nginx-ingress",
     LocalChartOpts(
-        path="~/Documents/helm-charts/charts/nginx-ingress-controller/charts/common",
+        path="/home/asterion/Documents/helm-charts/charts/nginx-ingress-controller",
     ),
 )
 
