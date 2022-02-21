@@ -22,12 +22,13 @@ is_minikube = config.require_bool("isMinikube")
 app_name = "nginx"
 app_labels = { "app": app_name }
 
-nginx_ingress = Chart(
-    "nginx-ingress",
-    LocalChartOpts(
-        path="/home/asterion/Documents/helm-charts/charts/nginx-ingress-controller",
-    ),
-)
+# Helm Deployment -- Not Active
+# nginx_ingress = Chart(
+#     "nginx-ingress",
+#     LocalChartOpts(
+#         path="/home/asterion/Documents/helm-charts/charts/nginx-ingress-controller",
+#     ),
+# )
 
 
 # Define an Nginx deployment for ingress control
