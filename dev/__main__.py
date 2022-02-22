@@ -70,13 +70,47 @@ wordpress_deployment = Deployment(
                 "hostAliases": [{ "ip": "127.0.0.1", "hostnames": [ "status.localhost" ]}],
                 "containers": [
                     {
-                        
+                        "name": "wordpress",
+                        "image": "",
+                        "imagePullPolicy": "IfNotPresent",
+                        "env:" [
+                            { "name": "MARIADB_HOST", "value": "mariadb" },
+                            { "name": "WORDPRESS_DATABASE_NAME", "value": "litrepublic-dev-wordpress" },
+                            { "name": "WORDPRESS_DATABASE_USER", "value": "wordpress-db-admin" },
+                            {
+                                "name": "WORDPRESS_DATABASE_PASSWORD",
+                                "valueFrom": {
+                                    "secretKeyRef": {
+                                        "name": mariadbSecret.metadata.name,
+                                        "key": "mariadb-password"
+                                    }
+                                }
+                            }
+                        ],
+                        "ports": [
+                            { "name": "http", "containerPort": 80 },
+                            { "name": "https", "containerPort": 443 }
+                        ],
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/litrepublic/wordpress",
+                                "name": "lirepublic-wordpress-data",
+                                "subPath": "wordpress"
+                            }
+                        ],
+                        "resources": { 
+                            "requests": { 
+                                "cpu": "300m", 
+                                "memory": "512Mi" 
+                            }
+                        }
                     }
-                ]
+                ],
             }
         }
     }
-)
+}, 
+{ "provider": "provider" })
 
 # Get the public IP of the deployment
 result = None
