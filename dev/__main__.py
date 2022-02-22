@@ -83,11 +83,13 @@ wordpress_deployment = Deployment(
                                         "key": "mariadb-password"
                                     }
                                 }
-                            }],
-                        "ports": [
-                            { "name": "http", "containerPort": 80 },
-                            { "name": "https", "containerPort": 443 }
+                            },
+                            ...
                         ],
+                        # "ports": [
+                        #     { "name": "http", "containerPort": 80 },
+                        #     { "name": "https", "containerPort": 443 }
+                        # ],
                         "volumeMounts": [
                             {
                                 "mountPath": "/litrepublic/wordpress",
