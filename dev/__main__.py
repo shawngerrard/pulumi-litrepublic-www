@@ -71,7 +71,7 @@ wordpress_deployment = Deployment(
                 "containers": [
                     {
                         "name": "wordpress",
-                        "image": "",
+                        "image": "wordpress:5.9.0-php8.1-fpm-alpine",
                         "imagePullPolicy": "IfNotPresent",
                         "env:" [
                             { "name": "MARIADB_HOST", "value": "mariadb" },
