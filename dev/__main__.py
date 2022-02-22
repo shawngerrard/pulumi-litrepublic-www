@@ -60,7 +60,7 @@ nginx_frontend = Service(
 wordpress_deployment = Deployment(
     "wordpress",
     spec={
-        "selector": { "match_labels": { "app": "wordpress", "release":"www-dev-arm64"} },
+        "selector": { "match_labels": { "app": "wordpress" },
         "replicas": 1,
         "template": {
             "metadata": {
