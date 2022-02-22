@@ -73,20 +73,17 @@ wordpress_deployment = Deployment(
                         "name": "wordpress",
                         "image": "wordpress:5.9.0-php8.1-fpm-alpine",
                         "imagePullPolicy": "IfNotPresent",
-                        "env:" [
-                            { "name": "MARIADB_HOST", "value": "mariadb" },
+                        "env:" [{ "name": "MARIADB_HOST", "value": "mariadb" },
                             { "name": "WORDPRESS_DATABASE_NAME", "value": "litrepublic-dev-wordpress" },
                             { "name": "WORDPRESS_DATABASE_USER", "value": "wordpress-db-admin" },
-                            {
-                                "name": "WORDPRESS_DATABASE_PASSWORD",
+                            { "name": "WORDPRESS_DATABASE_PASSWORD",
                                 "valueFrom": {
                                     "secretKeyRef": {
                                         "name": mariadbSecret.metadata.name,
                                         "key": "mariadb-password"
                                     }
                                 }
-                            }
-                        ],
+                            }],
                         "ports": [
                             { "name": "http", "containerPort": 80 },
                             { "name": "https", "containerPort": 443 }
@@ -105,12 +102,11 @@ wordpress_deployment = Deployment(
                             }
                         }
                     }
-                ],
+                ]
             }
         }
     }
-}, 
-{ "provider": "provider" })
+)
 
 # Get the public IP of the deployment
 result = None
