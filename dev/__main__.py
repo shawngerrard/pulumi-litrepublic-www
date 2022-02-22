@@ -68,28 +68,10 @@ wordpress_deployment = Deployment(
             },
             "spec": {
                 "hostAliases": [{ "ip": "127.0.0.1", "hostnames": [ "status.localhost" ]}],
-                "containers": [
-                    {
-                        "name": "wordpress",
-                        "image": "wordpress:5.9.0-php8.1-fpm-alpine",
-                        "imagePullPolicy": "IfNotPresent",
-                        "env:" [{ "name": "MARIADB_HOST", "value": "mariadb" },
-                            { "name": "WORDPRESS_DATABASE_NAME", "value": "litrepublic-dev-wordpress" },
-                            { "name": "WORDPRESS_DATABASE_USER", "value": "wordpress-db-admin" },
-                            { "name": "WORDPRESS_DATABASE_PASSWORD",
-                                "valueFrom": {
-                                    "secretKeyRef": {
-                                        "name": mariadbSecret.metadata.name,
-                                        "key": "mariadb-password"
-                                    }
-                                }
-                            },
-                            ...
+                "containers": [{"name": "wordpress","image": "wordpress:5.9.0-php8.1-fpm-alpine","imagePullPolicy": "IfNotPresent","env:" [{ "name": "MARIADB_HOST", "value": "mariadb" },{ "name": "WORDPRESS_DATABASE_NAME", "value": "litrepublic-dev-wordpress" },{ "name": "WORDPRESS_DATABASE_USER", "value": "wordpress-db-admin" },{ "name": "WORDPRESS_DATABASE_PASSWORD","valueFrom": {"secretKeyRef": {"name": mariadbSecret.metadata.name,"key": "mariadb-password"}}}],"ports": [
+                            { "name": "http", "containerPort": 80 },
+                            { "name": "https", "containerPort": 443 }
                         ],
-                        # "ports": [
-                        #     { "name": "http", "containerPort": 80 },
-                        #     { "name": "https", "containerPort": 443 }
-                        # ],
                         "volumeMounts": [
                             {
                                 "mountPath": "/litrepublic/wordpress",
