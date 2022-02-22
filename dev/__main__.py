@@ -4,8 +4,10 @@ Creating a Kubernetes Deployment for Lit Republic web services DEV environment
 
 # Import required Pulumi modules
 import pulumi
+import kubeconfig from "~/.kube/config"
+from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment
-from pulumi_kubernetes.core.v1 import Service
+from pulumi_kubernetes.core.v1 import Service, Secret
 #from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 # --
@@ -56,11 +58,17 @@ nginx_frontend = Service(
     }
 )
 
+# Define a Kubernetes provider
+kubernetes_provider = Provider(
+    "kubernetes_provider", 
+    { "kubeconfig": kubeconfig.kubeconfig, "namespace": kubeconfig.appsNamespaceName }
+)
+
 # Define a Wordpress deployment
 wordpress_deployment = Deployment(
     "wordpress",
     spec={
-        "selector": { "match_labels": { "app": "wordpress" },
+        "selector": { "match_labels": { "app": "wordpress" }},
         "replicas": 1,
         "template": {
             "metadata": {
