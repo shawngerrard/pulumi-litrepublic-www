@@ -30,9 +30,8 @@ app_labels = { "app": app_name }
 #     ),
 # )
 
-
 # Define an Nginx deployment for ingress control
-deployment = Deployment(
+nginx_deployment = Deployment(
     app_name,
     spec={
         "selector": { "match_labels": app_labels },
@@ -44,11 +43,11 @@ deployment = Deployment(
     }
 )
 
-# Allocate an IP to the Deployment
-frontend = Service(
+# Allocate an IP to the Nginx deployment
+nginx_frontend = Service(
     app_name,
     metadata={
-        "labels": deployment.spec["template"]["metadata"]["labels"],
+        "labels": nginx_deployment.spec["template"]["metadata"]["labels"],
     },
     spec={
         "type": "ClusterIP" if is_minikube else "LoadBalancer",
@@ -57,15 +56,37 @@ frontend = Service(
     }
 )
 
+# Define a Wordpress deployment
+wordpress_deployment = Deployment(
+    "wordpress",
+    spec={
+        "selector": { "match_labels": { "app": "wordpress", "release":"www-dev-arm64"} },
+        "replicas": 1,
+        "template": {
+            "metadata": {
+                "labels": "wordpress"
+            },
+            "spec": {
+                "hostAliases": [{ "ip": "127.0.0.1", "hostnames": [ "status.localhost" ]}],
+                "containers": [
+                    {
+                        
+                    }
+                ]
+            }
+        }
+    }
+)
+
 # Get the public IP of the deployment
 result = None
 if is_minikube:
-    result = frontend.spec.apply(lambda v: v["cluster_ip"] if "cluster_ip" in v else None)
+    result = nginx_frontend.spec.apply(lambda v: v["cluster_ip"] if "cluster_ip" in v else None)
 else:
-    ingress = frontend.status.apply(lambda v: v["load_balancer"]["ingress"][0] if "load_balancer" in v else None)
+    ingress = nginx_frontend.status.apply(lambda v: v["load_balancer"]["ingress"][0] if "load_balancer" in v else None)
     if ingress is not None:
         result = ingress.apply(lambda v: v["ip"] if "ip" in v else v["hostname"])
 
 # Output public IP and deployment name
-pulumi.export("name", deployment.metadata["name"])
+pulumi.export("name", nginx_deployment.metadata["name"])
 pulumi.export("ip", result)
