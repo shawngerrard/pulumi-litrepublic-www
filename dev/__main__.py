@@ -77,7 +77,7 @@ wordpress_deployment = Deployment(
                             { "name": "MARIADB_HOST", "value": "mariadb" },
                             { "name": "WORDPRESS_DATABASE_NAME", "value": "litrepublic-dev-wordpress" },
                             { "name": "WORDPRESS_DATABASE_USER", "value": "wordpress-db-admin" },
-                            { "name": "WORDPRESS_DATABASE_PASSWORD", "value": "!@#test123"
+                            { "name": "WORDPRESS_DATABASE_PASSWORD", "value": "!@#test123" }
                             # "valueFrom": 
                             #     {
                             #         "secretKeyRef": {
