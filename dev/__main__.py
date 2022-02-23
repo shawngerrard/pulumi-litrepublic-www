@@ -8,7 +8,7 @@ import kubeconfig from "~/.kube/config"
 import pulumi_random as random
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment
-from pulumi_kubernetes.core.v1 import Service, Secret
+from pulumi_kubernetes.core.v1 import ConfigMap, Secret, Service 
 #from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 # --
@@ -87,6 +87,39 @@ wordpressSecret = Secret(
         "provider": provider
     }
 )
+
+# Create a configmap for the mariadb settings
+mariadbCM = ConfigMap("mariadb", {
+    "data": {
+        "my.cnf": `
+[mysqld]
+skip-name-resolve
+explicit_defaults_for_timestamp
+basedir=/opt/bitnami/mariadb
+port=3306
+socket=/opt/bitnami/mariadb/tmp/mysql.sock
+tmpdir=/opt/bitnami/mariadb/tmp
+max_allowed_packet=16M
+bind-address=0.0.0.0
+pid-file=/opt/bitnami/mariadb/tmp/mysqld.pid
+log-error=/opt/bitnami/mariadb/logs/mysqld.log
+character-set-server=UTF8
+collation-server=utf8_general_ci
+
+[client]
+port=3306
+socket=/opt/bitnami/mariadb/tmp/mysql.sock
+default-character-set=UTF8
+
+[manager]
+port=3306
+socket=/opt/bitnami/mariadb/tmp/mysql.sock
+pid-file=/opt/bitnami/mariadb/tmp/mysqld.pid
+`
+    }
+}, { "provider": provider });
+
+
 
 # Define a Wordpress deployment
 wordpress_deployment = Deployment(
