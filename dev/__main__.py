@@ -194,23 +194,56 @@ wordpress_deployment = Deployment(
                         "image": "wordpress:5.9.0-php8.1-fpm-alpine",
                         "imagePullPolicy": "IfNotPresent",
                         "env": [
+                            { "name": "ALLOW_EMPTY_PASSWORD", "value": "yes"},
                             { "name": "MARIADB_HOST", "value": "mariadb" },
+                            { "name": "MARIADB_PORT_NUMBER", "value": "3306"},
                             { "name": "WORDPRESS_DATABASE_NAME", "value": "litrepublic-dev-wordpress" },
                             { "name": "WORDPRESS_DATABASE_USER", "value": "wordpress-db-admin" },
-                            { "name": "WORDPRESS_DATABASE_PASSWORD", "value": "!@#test123" }
-                            # "valueFrom": 
-                            #     {
-                            #         "secretKeyRef": {
-                            #             "name": mariadbSecret.metadata.name,
-                            #             "key": "mariadb-password"
-                            #         }
-                            #     }
-                            # }
+                            { "name": "WORDPRESS_DATABASE_PASSWORD", "valueFrom": {
+                                    "secretKeyRef": {
+                                        "name": mariadbSecret.metadata.name,
+                                        "key": "mariadb-password"
+                                    }
+                                }
+                            }, 
+                            { "name": "WORDPRESS_USERNAME", "value": "user"},
+                            {
+                                "name": "WORDPRESS_PASSWORD", "valueFrom": {
+                                    "secretKeyRef": {
+                                        "name": wordpressSecret.metadata.name,
+                                        "key": "wordpress-password"
+                                    }
+                                }
+                            },
+                            { name: "WORDPRESS_EMAIL", value: "user@example.com" },
+                            { name: "WORDPRESS_FIRST_NAME", value: "FirstName" },
+                            { name: "WORDPRESS_LAST_NAME", value: "LastName" },
+                            { name: "WORDPRESS_HTACCESS_OVERRIDE_NONE", value: "no" },
+                            { name: "WORDPRESS_BLOG_NAME", value: "Lit Republic Storefront" },
+                            { name: "WORDPRESS_SKIP_INSTALL", value: "no" },
+                            { name: "WORDPRESS_TABLE_PREFIX", value: "wp_" },
+                            { name: "WORDPRESS_SCHEME", value: "http" },
                         ],
                         "ports": [
                             { "name": "http", "containerPort": 80 },
                             { "name": "https", "containerPort": 443 }
                         ],
+                        "livenessProbe": {
+                            "httpGet": { "path": "/wp-login.php", "port": "http" },
+                            "failureThreshold": 6,
+                            "initialDelaySeconds": 120,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "readinessProbe": {
+                            "httpGet": { "path": "/wp-login.php", "port": "http" },
+                            "failureThreshold": 6,
+                            "initialDelaySeconds": 30,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
                         "volumeMounts": [
                             {
                                 "mountPath": "/litrepublic/wordpress",
@@ -225,9 +258,19 @@ wordpress_deployment = Deployment(
                             }
                         }
                     }
+                ],
+                "volumes": [
+                    {
+                        "name": "wordpress-data"
+                        "PersistentVolumeClaim": {
+                            "claimName": wordpressPVC.metadata.name
+                        }
+                    }
                 ]
             }
         }
+    }, {
+    "provider": provider
     }
 )
 
