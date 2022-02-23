@@ -8,7 +8,7 @@ import kubeconfig from "~/.kube/config"
 import pulumi_random as random
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment
-from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, Service 
+from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, Service, StatefulSet
 #from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 # --
@@ -271,6 +271,153 @@ wordpress_deployment = Deployment(
         }
     }, {
     "provider": provider
+    }
+)
+
+# Create a StatefulSet of mariadb to run locally on the cluster
+mariadb = StatefulSet("mariadb",
+    spec={
+        "selector": {
+            "matchLabels": {
+                "app": "mariadb",
+                #"release": "example",
+                #"component": "master"
+            }
+        },
+        "serviceName": "mariadb",
+        "replicas": 1,
+        "updateStrategy": {
+            "type": "RollingUpdate"
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "mariadb",
+                    #"release": "example",
+                    #"component": "master"
+                }
+            },
+            "spec": {
+                "serviceAccountName": "default",
+                "securityContext": {
+                    "fsGroup": 1001,
+                    "runAsUser"": 1001
+                },
+                "affinity": {
+                    "podAntiAffinity": {
+                        "preferredDuringSchedulingIgnoredDuringExecution": [
+                            {
+                                "weight": 1,
+                                "podAffinityTerm": {
+                                    "topologyKey": "kubernetes.io/hostname",
+                                    "labelSelector": {
+                                        "matchLabels": {
+                                            "app": "mariadb",
+                                            #"release": "example"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "containers": [
+                    {
+                        "name": "mariadb",
+                        "image": "",
+                        "imagePullPolicy": "IfNotPresent",
+                        "env": [
+                            {
+                                "name": "MARIADB_ROOT_PASSWORD",
+                                "valueFrom": {
+                                    "secretKeyRef": {
+                                        "name": mariadbSecret.metadata.name,
+                                        "key": "mariadb-root-password"
+                                    }
+                                }
+                            },
+                            { "name": "MARIADB_USER", "value": "litrepublic-wordpress-user" },
+                            {
+                                "name": "MARIADB_PASSWORD",
+                                "valueFrom": {
+                                    "secretKeyRef": {
+                                        "name": mariadbSecret.metadata.name,
+                                        "key": "mariadb-password"
+                                    }
+                                }
+                            },
+                            { "name": "MARIADB_DATABASE", "value": "litrepublic-wordpress-dev" }
+                        ],
+                        ports: [
+                            { "name": "mysql", "containerPort": 3306 }
+                        ],
+                        "livenessProbe": {
+                            "exec": {
+                                "command": ["sh", "-c", "exec mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD"],
+                            },
+                            "initialDelaySeconds": 120,
+                            "periodSeconds": 10,
+                            "timeoutSeconds": 1,
+                            "successThreshold": 1,
+                            "failureThreshold": 3
+                        },
+                        "readinessProbe": {
+                            "exec": {
+                                "command": ["sh", "-c", "exec mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD"]
+                            },
+                            "initialDelaySeconds": 30,
+                            "periodSeconds": 10,
+                            "timeoutSeconds": 1,
+                            "successThreshold": 1,
+                            "failureThreshold": 3
+                        },
+                        "volumeMounts": [
+                            {
+                                "name": "data",
+                                "mountPath": "/litrepublic/mariadb"
+                            },
+                            {
+                                "name": "config",
+                                "mountPath": "/opt/litrepublic/mariadb/conf/my.cnf",
+                                "subPath": "my.cnf"
+                            }
+                        ]
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "config",
+                        "configMap": {
+                            "name": mariadbCM.metadata.name
+                        }
+                    }
+                ]
+            },
+        },
+        "volumeClaimTemplates": [
+            {
+                "metadata": {
+                    "name": "data",
+                    "labels": {
+                        "app": "mariadb",
+                        #"component": "master",
+                        #"release": "example",
+                    }
+                },
+                "spec": {
+                    "accessModes": [
+                        "ReadWriteOnce"
+                    ],
+                    "resources": {
+                        "requests": {
+                            "storage": "8Gi"
+                        }
+                    }
+                }
+            }
+        ]
+    }, 
+    { "provider": provider 
     }
 )
 
