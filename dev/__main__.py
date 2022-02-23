@@ -5,6 +5,7 @@ Creating a Kubernetes Deployment for Lit Republic web services DEV environment
 # Import required Pulumi modules
 import pulumi
 import kubeconfig from "~/.kube/config"
+import pulumi_random as random
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment
 from pulumi_kubernetes.core.v1 import Service, Secret
@@ -59,9 +60,32 @@ nginx_frontend = Service(
 )
 
 # Define a Kubernetes provider
-kubernetes_provider = Provider(
-    "kubernetes_provider", 
-    { "kubeconfig": kubeconfig.kubeconfig, "namespace": kubeconfig.appsNamespaceName }
+kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": kubeconfig.kubeconfig, "namespace": kubeconfig.appsNamespaceName })
+
+# Create a database secret for MariaDB
+mariadbSecret = Secret(
+    "mariadb", {
+        "stringData": {
+            "mariadb-root-password": random.RandomPassword("mariadb-root-pw", {
+                "length": 12}).result,
+            "mariadb-password": random.RandomPassword("mariadb-pw", {
+                "length": 12}).result
+            }
+        }, { 
+        "provider": provider
+    }
+)
+
+# Create a database secret for the Wordpress admin
+wordpressSecret = Secret(
+    "wordpress", {
+        "stringData": {
+            "wordpress-password": random.RandomPassword("wordpress-pw", {
+                "length": 12}).result,
+            }
+        }, { 
+        "provider": provider
+    }
 )
 
 # Define a Wordpress deployment
