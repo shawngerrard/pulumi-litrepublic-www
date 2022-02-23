@@ -4,12 +4,15 @@ Creating a Kubernetes Deployment for Lit Republic web services DEV environment
 
 # Import required Pulumi modules
 import pulumi
-import kubeconfig from "~/.kube/config"
+#import kubeconfig from "~/.kube/config"
 import pulumi_random as random
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment
 from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, Service, StatefulSet
 #from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
+
+
+#config = file.read("~/.kube/config")
 
 # --
 # Minikube does not implement services of type `LoadBalancer` and so requires the 
@@ -60,7 +63,7 @@ nginx_frontend = Service(
 )
 
 # Define a Kubernetes provider
-kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": kubeconfig.kubeconfig, "namespace": kubeconfig.appsNamespaceName })
+kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": "", "namespace": "litrepublic" })
 
 # Create a database secret for MariaDB
 mariadbSecret = Secret(
@@ -215,14 +218,14 @@ wordpress_deployment = Deployment(
                                     }
                                 }
                             },
-                            { name: "WORDPRESS_EMAIL", value: "user@example.com" },
-                            { name: "WORDPRESS_FIRST_NAME", value: "FirstName" },
-                            { name: "WORDPRESS_LAST_NAME", value: "LastName" },
-                            { name: "WORDPRESS_HTACCESS_OVERRIDE_NONE", value: "no" },
-                            { name: "WORDPRESS_BLOG_NAME", value: "Lit Republic Storefront" },
-                            { name: "WORDPRESS_SKIP_INSTALL", value: "no" },
-                            { name: "WORDPRESS_TABLE_PREFIX", value: "wp_" },
-                            { name: "WORDPRESS_SCHEME", value: "http" },
+                            { "name": "WORDPRESS_EMAIL", "value": "user@example.com" },
+                            { "name": "WORDPRESS_FIRST_NAME", "value": "FirstName" },
+                            { "name": "WORDPRESS_LAST_NAME", "value": "LastName" },
+                            { "name": "WORDPRESS_HTACCESS_OVERRIDE_NONE", "value": "no" },
+                            { "name": "WORDPRESS_BLOG_NAME", "value": "Lit Republic Storefront" },
+                            { "name": "WORDPRESS_SKIP_INSTALL", "value": "no" },
+                            { "name": "WORDPRESS_TABLE_PREFIX", "value": "wp_" },
+                            { "name": "WORDPRESS_SCHEME", "value": "http" },
                         ],
                         "ports": [
                             { "name": "http", "containerPort": 80 },
@@ -348,7 +351,7 @@ mariadb = StatefulSet("mariadb",
                             },
                             { "name": "MARIADB_DATABASE", "value": "litrepublic-wordpress-dev" }
                         ],
-                        ports: [
+                        "ports": [
                             { "name": "mysql", "containerPort": 3306 }
                         ],
                         "livenessProbe": {
