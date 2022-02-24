@@ -262,7 +262,7 @@ wordpress_deployment = Deployment(
                 ],
                 "volumes": [
                     {
-                        "name": "wordpress-data"
+                        "name": "wordpress-data",
                         "PersistentVolumeClaim": {
                             "claimName": wordpressPVC.metadata.name
                         }
