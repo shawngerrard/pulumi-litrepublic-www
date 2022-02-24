@@ -63,20 +63,21 @@ nginx_frontend = Service(
 # Define a Kubernetes provider
 kubernetes_provider = Provider("kubernetes_provider")
 
+# Create random passwords for MariaDB and Wordpress
+mariaDBRoot = random.RandomPassword("mariadb-root-password", length=12)
+mariaDBPW = random.RandomPassword("mariadb-password", length=12)
+
 # Create a database secret for MariaDB
 mariadbSecret = Secret(
     "mariadb",
-    string_data=[{
-        "mariadb-root-password":random.RandomPassword("mariadb-root-pw", 12).result,
-        "mariadb-password":random.RandomPassword("mariadb-pw", 12).result
-    }],
-    opts=[{"providers":provider}]
+    opts=[{"provider":kubernetes_provider}],
+    string_data=[{mariaDBRoot, mariaDBPW}]
 )
 
 # Create a database secret for the Wordpress admin
 wordpressSecret = Secret(
     "wordpress",
-    stringData=[{
+    string_data=[{
         "wordpress-password":random.RandomPassword("wordpress-pw", length=12).result
     }],
     opts=[{"providers":provider}]
