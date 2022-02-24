@@ -7,8 +7,8 @@ import pulumi
 import pulumi_random as random
 #from kubeconfig import KubeConfig
 from pulumi_kubernetes import Provider
-from pulumi_kubernetes.apps.v1 import Deployment
-from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, Service, StatefulSet
+from pulumi_kubernetes.apps.v1 import Deployment, StatefulSet
+from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, Service
 #from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 # --
