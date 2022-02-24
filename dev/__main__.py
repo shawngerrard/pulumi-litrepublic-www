@@ -92,7 +92,7 @@ wordpressSecret = Secret(
 # Create a configmap for the mariadb settings
 mariadbCM = ConfigMap("mariadb", {
     "data": {
-        "my.cnf": `
+        "my.cnf": '''
 [mysqld]
 skip-name-resolve
 explicit_defaults_for_timestamp
@@ -116,7 +116,7 @@ default-character-set=UTF8
 port=3306
 socket=/opt/litrepublic/mariadb/tmp/mysql.sock
 pid-file=/opt/litrepublic/mariadb/tmp/mysqld.pid
-`
+'''
     }
 }, { "provider": provider })
 
