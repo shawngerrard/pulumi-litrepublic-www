@@ -61,7 +61,7 @@ nginx_frontend = Service(
 )
 
 # Define a Kubernetes provider
-kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": "/home/asterion/.kube/config", "namespace": "litrepublic" })
+kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": "/home/asterion/.kube/config", "namespace": "litrepublic-www-dev" })
 
 # Create a database secret for MariaDB
 mariadbSecret = Secret(
