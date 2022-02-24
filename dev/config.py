@@ -1,6 +1,6 @@
 # Obtain Pulumi config
 import pulumi as pulumi
-config = new pulumi.Config()
+config = pulumi.Config()
 
 # Existing Pulumi stack reference in the format:
 # <organization>/<project>/<stack> e.g. "myUser/myProject/dev"
