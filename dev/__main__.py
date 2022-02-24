@@ -3,12 +3,13 @@ Creating a Kubernetes Deployment for Lit Republic web services DEV environment
 """
 
 # Import required Pulumi modules
-import pulumi
+import pulumi as pulumi
 import pulumi_random as random
 #from kubeconfig import KubeConfig
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment, StatefulSet
 from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, Service
+from "./config" import config as config
 #from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 # --
@@ -18,9 +19,8 @@ from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, 
 
 # Get the Minikube user setting from the Pulumi configuration
 # TO DO: Implement writing the isMinikube setting to the config file so that it can be centrally managed here.
-config = pulumi.Config()
-#kubeconfig = KubeConfig()
-is_minikube = config.require_bool("isMinikube")
+pulumi_config = pulumi.Config()
+is_minikube = pulumi_config.require_bool("isMinikube")
 
 # Set the deployment name 
 app_name = "nginx"
