@@ -83,8 +83,8 @@ wordpressSecret = Secret(
 )
 
 # Create a configmap for the mariadb settings
-mariadbCM = ConfigMap("mariadb", {
-    "data": {
+mariadbCM = ConfigMap("mariadb",
+    data=[{
         "my.cnf": '''
 [mysqld]
 skip-name-resolve
@@ -110,8 +110,8 @@ port=3306
 socket=/opt/litrepublic/mariadb/tmp/mysql.sock
 pid-file=/opt/litrepublic/mariadb/tmp/mysqld.pid
 '''
-    }
-}, opts=pulumi.ResourceOptions(provider=kubernetes_provider))
+    }],
+opts=pulumi.ResourceOptions(provider=kubernetes_provider))
 
 # Create a persistent volume claim for wordpress on the mariadb volume
 wordpressPVC = PersistentVolumeClaim("wordpress", {
