@@ -275,7 +275,7 @@ wordpress_deployment = Deployment(
 
 # Create a StatefulSet of mariadb to run locally on the cluster
 mariadb = StatefulSet("mariadb",
-    spec={
+    "spec": {
         "selector": {
             "matchLabels": {
                 "app": "mariadb",
