@@ -128,11 +128,11 @@ wordpressPVC = PersistentVolumeClaim("wordpress",
 )
 
 # Create a service for mariadb
-mariadbSvc = Service("mariadb", {
-    "metadata": {
+mariadbSvc = Service("mariadb",
+    metadata={
         "name": "mariadb",
     },
-    "spec": {
+    spec={
         "type": "ClusterIP",
         "ports": [
             {
@@ -146,8 +146,9 @@ mariadbSvc = Service("mariadb", {
             "component": "master",
             "release": "example"
         }
-    }
-}, { "provider": provider })
+    },
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider)
+)
 
 # Create a service for wordpress
 wordpressSvc = Service("wordpress", {
