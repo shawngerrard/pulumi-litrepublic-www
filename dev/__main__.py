@@ -300,7 +300,7 @@ mariadb = StatefulSet("mariadb",
                 "serviceAccountName": "default",
                 "securityContext": {
                     "fsGroup": 1001,
-                    "runAsUser"": 1001
+                    "runAsUser": 1001
                 },
                 "affinity": {
                     "podAntiAffinity": {
