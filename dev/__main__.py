@@ -4,15 +4,12 @@ Creating a Kubernetes Deployment for Lit Republic web services DEV environment
 
 # Import required Pulumi modules
 import pulumi
-#import kubeconfig from "~/.kube/config"
 import pulumi_random as random
+#from kubeconfig import KubeConfig
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment
 from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, Service, StatefulSet
 #from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
-
-
-#config = file.read("~/.kube/config")
 
 # --
 # Minikube does not implement services of type `LoadBalancer` and so requires the 
@@ -22,6 +19,7 @@ from pulumi_kubernetes.core.v1 import ConfigMap, PersistentVolumeClaim, Secret, 
 # Get the Minikube user setting from the Pulumi configuration
 # TO DO: Implement writing the isMinikube setting to the config file so that it can be centrally managed here.
 config = pulumi.Config()
+#kubeconfig = KubeConfig()
 is_minikube = config.require_bool("isMinikube")
 
 # Set the deployment name 
@@ -63,7 +61,7 @@ nginx_frontend = Service(
 )
 
 # Define a Kubernetes provider
-kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": "", "namespace": "litrepublic" })
+kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": "/home/asterion/.kube/config", "namespace": "litrepublic" })
 
 # Create a database secret for MariaDB
 mariadbSecret = Secret(
