@@ -86,44 +86,46 @@ wordpressSecret = Secret(
 mariadbCM = ConfigMap("mariadb",
     data=[{
         "my.cnf": '''
-[mysqld]
-skip-name-resolve
-explicit_defaults_for_timestamp
-basedir=/opt/litrepublic/mariadb
-port=3306
-socket=/opt/litrepublic/mariadb/tmp/mysql.sock
-tmpdir=/opt/litrepublic/mariadb/tmp
-max_allowed_packet=16M
-bind-address=0.0.0.0
-pid-file=/opt/litrepublic/mariadb/tmp/mysqld.pid
-log-error=/opt/litrepublic/mariadb/logs/mysqld.log
-character-set-server=UTF8
-collation-server=utf8_general_ci
+    [mysqld]
+    skip-name-resolve
+    explicit_defaults_for_timestamp
+    basedir=/opt/litrepublic/mariadb
+    port=3306
+    socket=/opt/litrepublic/mariadb/tmp/mysql.sock
+    tmpdir=/opt/litrepublic/mariadb/tmp
+    max_allowed_packet=16M
+    bind-address=0.0.0.0
+    pid-file=/opt/litrepublic/mariadb/tmp/mysqld.pid
+    log-error=/opt/litrepublic/mariadb/logs/mysqld.log
+    character-set-server=UTF8
+    collation-server=utf8_general_ci
 
-[client]
-port=3306
-socket=/opt/litrepublic/mariadb/tmp/mysql.sock
-default-character-set=UTF8
+    [client]
+    port=3306
+    socket=/opt/litrepublic/mariadb/tmp/mysql.sock
+    default-character-set=UTF8
 
-[manager]
-port=3306
-socket=/opt/litrepublic/mariadb/tmp/mysql.sock
-pid-file=/opt/litrepublic/mariadb/tmp/mysqld.pid
-'''
+    [manager]
+    port=3306
+    socket=/opt/litrepublic/mariadb/tmp/mysql.sock
+    pid-file=/opt/litrepublic/mariadb/tmp/mysqld.pid
+    '''
     }],
-opts=pulumi.ResourceOptions(provider=kubernetes_provider))
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider)
+)
 
 # Create a persistent volume claim for wordpress on the mariadb volume
-wordpressPVC = PersistentVolumeClaim("wordpress", {
-    "spec": {
+wordpressPVC = PersistentVolumeClaim("wordpress",
+    spec=[{
         "accessModes": ["ReadWriteOnce"],
         "resources": {
             "requests": {
                 "storage": "10Gi"
             }
         }
-    }
-}, { "provider": provider })
+    }],
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider)
+)
 
 # Create a service for mariadb
 mariadbSvc = Service("mariadb", {
