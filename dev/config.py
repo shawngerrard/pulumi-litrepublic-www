@@ -4,19 +4,19 @@ config = pulumi.Config()
 
 # Existing Pulumi stack reference in the format:
 # <organization>/<project>/<stack> e.g. "myUser/myProject/dev"
-infraStackRef = pulumi.StackReference(config.require("infraStackRef"));
-clusterStackRef = pulumi.StackReference(config.require("clusterStackRef"));
+infraStackRef = pulumi.StackReference(config.require("infraStackRef"))
+#clusterStackRef = pulumi.StackReference(config.require("clusterStackRef"))
 
 config = {
-    # Infra
-    "privateSubnetIds": infraStackRef.getOutput("privateSubnetIds"),
-    "publicSubnetIds": infraStackRef.getOutput("publicSubnetIds"),
+    # Obtain Pulumi infra attributes
+    "privateSubnetIds": infraStackRef.get_output("privateSubnetIds"),
+    "publicSubnetIds": infraStackRef.get_output("publicSubnetIds"),
 
-    # Cluster
-    "kubeconfig": clusterStackRef.getOutput("kubeconfig"),
-    "clusterName": clusterStackRef.getOutput("clusterName"),
-    "securityGroupIds": clusterStackRef.getOutput("securityGroupIds"),
-    "clusterSvcsNamespaceName": clusterStackRef.getOutput("clusterSvcsNamespaceName"),
-    "appSvcsNamespaceName": clusterStackRef.getOutput("appSvcsNamespaceName"),
-    "appsNamespaceName": clusterStackRef.getOutput("appsNamespaceName"),
+    # Obtain Kubernetes cluster attributes
+    "kubeconfig": infraStackRef.get_output("kubeconfig"),
+    "clusterName": infraStackRef.get_output("clusterName"),
+    "securityGroupIds": infraStackRef.get_output("securityGroupIds"),
+    "clusterSvcsNamespaceName": infraStackRef.get_output("clusterSvcsNamespaceName"),
+    "appSvcsNamespaceName": infraStackRef.get_output("appSvcsNamespaceName"),
+    "appsNamespaceName": infraStackRef.get_output("appsNamespaceName"),
 }
