@@ -111,7 +111,7 @@ socket=/opt/litrepublic/mariadb/tmp/mysql.sock
 pid-file=/opt/litrepublic/mariadb/tmp/mysqld.pid
 '''
     }
-}, { "provider": provider })
+}, opts=pulumi.ResourceOptions(provider=kubernetes_provider))
 
 # Create a persistent volume claim for wordpress on the mariadb volume
 wordpressPVC = PersistentVolumeClaim("wordpress", {
