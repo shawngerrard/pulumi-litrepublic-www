@@ -7,7 +7,7 @@ config = pulumi.Config()
 infraStackRef = pulumi.StackReference(config.require("infraStackRef"));
 clusterStackRef = pulumi.StackReference(config.require("clusterStackRef"));
 
-export config = {
+config = {
     # Infra
     "privateSubnetIds": infraStackRef.getOutput("privateSubnetIds"),
     "publicSubnetIds": infraStackRef.getOutput("publicSubnetIds"),
