@@ -66,19 +66,20 @@ kubernetes_provider = Provider("kubernetes_provider")
 # Create a database secret for MariaDB
 mariadbSecret = Secret(
     "mariadb",
-        string_data=[{
-            "mariadb-root-password":random.RandomPassword("mariadb-root-pw", 12).result,
-            "mariadb-password":random.RandomPassword("mariadb-pw", 12).result
-        }],
+    string_data=[{
+        "mariadb-root-password":random.RandomPassword("mariadb-root-pw", 12).result,
+        "mariadb-password":random.RandomPassword("mariadb-pw", 12).result
+    }],
     opts=[{"providers":provider}]
 )
 
 # Create a database secret for the Wordpress admin
 wordpressSecret = Secret(
-    "wordpress", {
-        stringData=[{wordpress-password=random.RandomPassword("wordpress-pw", length=12).result}]
-    },
-    provider
+    "wordpress",
+    stringData=[{
+        "wordpress-password":random.RandomPassword("wordpress-pw", length=12).result
+    }],
+    opts=[{"providers":provider}]
 )
 
 # Create a configmap for the mariadb settings
