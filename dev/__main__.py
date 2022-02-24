@@ -151,8 +151,8 @@ mariadbSvc = Service("mariadb",
 )
 
 # Create a service for wordpress
-wordpressSvc = Service("wordpress", {
-    "spec": {
+wordpressSvc = Service("wordpress", 
+    spec={
         "type": "LoadBalancer",
         "externalTrafficPolicy": "Cluster",
         "ports": [
@@ -170,8 +170,9 @@ wordpressSvc = Service("wordpress", {
         "selector": {
             "app": "wordpress"
         }
-    }
-}, { "provider": provider })
+    },
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider)
+)
 
 # Define a Wordpress deployment
 wordpress_deployment = Deployment(
@@ -265,13 +266,14 @@ wordpress_deployment = Deployment(
                     }
                 ]
             }
-        },
-        "provider": provider
-    })
+        }
+    },
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider)
+)
 
 # Create a StatefulSet of mariadb to run locally on the cluster
-mariadb = StatefulSet("mariadb", {
-    "spec":{
+mariadb = StatefulSet("mariadb", 
+    spec={
         "selector": {
             "matchLabels": {
                 "app": "mariadb",
@@ -411,9 +413,8 @@ mariadb = StatefulSet("mariadb", {
                 }
             }
         ]
-    }, 
-    "provider": provider 
-    }
+    },
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider);
 )
 
 # Get the public IP of the deployment
