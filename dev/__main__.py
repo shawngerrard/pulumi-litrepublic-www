@@ -416,7 +416,7 @@ mariadb = StatefulSet("mariadb", {
             }
         ]
     }, 
-    { "provider": provider }
+    "provider": provider 
     }
 )
 
