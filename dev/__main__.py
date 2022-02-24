@@ -66,21 +66,20 @@ kubernetes_provider = Provider("kubernetes_provider")
 # Create random passwords for MariaDB and Wordpress
 mariaDBRoot = random.RandomPassword("mariadb-root-password", length=12)
 mariaDBPW = random.RandomPassword("mariadb-password", length=12)
+wordpressPW = random.RandomPassword("wordpress-pw", length=12)
 
 # Create a database secret for MariaDB
 mariadbSecret = Secret(
     "mariadb",
-    opts=[{"provider":kubernetes_provider}],
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider),
     string_data=[{mariaDBRoot, mariaDBPW}]
 )
 
 # Create a database secret for the Wordpress admin
 wordpressSecret = Secret(
     "wordpress",
-    string_data=[{
-        "wordpress-password":random.RandomPassword("wordpress-pw", length=12).result
-    }],
-    opts=[{"providers":provider}]
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider),
+    string_data=[{wordpressPW}]
 )
 
 # Create a configmap for the mariadb settings
