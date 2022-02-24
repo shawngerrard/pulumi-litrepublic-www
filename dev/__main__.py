@@ -71,7 +71,7 @@ mariadbSecret = Secret(
             "mariadb-password": random.RandomPassword("mariadb-pw", 12).result
         ]
     },
-    provider
+    opts=provider
 )
 
 # Create a database secret for the Wordpress admin
