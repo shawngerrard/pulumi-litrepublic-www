@@ -116,16 +116,28 @@ mariadbCM = ConfigMap("mariadb",
 
 # Create a persistent volume claim for wordpress on the mariadb volume
 wordpressPVC = PersistentVolumeClaim("wordpress",
-    spec=[{
-        "accessModes": ["ReadWriteOnce"],
-        "resources": {
-            "requests": {
-                "storage": "10Gi"
-            }
-        }
-    }],
+    spec=PersistentVolumeClaimSpecArgs(
+        storage_class_name="local-storage",
+        access_modes=["ReadWriteOnce"],
+        resources=ResourceRequirementsArgs(
+            requests={
+                "storage": "1Gi",
+            },
+        ),
+    ),
     opts=pulumi.ResourceOptions(provider=kubernetes_provider)
 )
+
+# wordpressPVC = PersistentVolumeClaim("wordpress",
+#     spec=[{"accessModes": ["ReadWriteOnce"]},
+#         {"resources": {
+#             "requests": {
+#                 "storage": "10Gi"
+#             }
+#         }
+#     ],
+#     opts=pulumi.ResourceOptions(provider=kubernetes_provider)
+# )
 
 # Create a service for mariadb
 mariadbSvc = Service("mariadb",
@@ -414,7 +426,7 @@ mariadb = StatefulSet("mariadb",
             }
         ]
     },
-    opts=pulumi.ResourceOptions(provider=kubernetes_provider);
+    opts=pulumi.ResourceOptions(provider=kubernetes_provider)
 )
 
 # Get the public IP of the deployment
