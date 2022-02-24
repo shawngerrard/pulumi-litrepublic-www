@@ -61,7 +61,7 @@ nginx_frontend = Service(
 )
 
 # Define a Kubernetes provider
-kubernetes_provider = Provider("kubernetes_provider", { "kubeconfig": config.kubeconfig, "namespace": config.appsNamespaceName })
+kubernetes_provider = Provider("kubernetes_provider")
 
 # Create a database secret for MariaDB
 mariadbSecret = Secret(
