@@ -269,9 +269,8 @@ wordpress_deployment = Deployment(
                     }
                 ]
             }
-        }
-    }, {
-    "provider": provider
+        },
+        "provider": provider
     })
 
 # Create a StatefulSet of mariadb to run locally on the cluster
