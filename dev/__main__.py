@@ -67,8 +67,8 @@ kubernetes_provider = Provider("kubernetes_provider")
 mariadbSecret = Secret(
     "mariadb",
         string_data=[
-            "mariadb-root-password": random.RandomPassword("mariadb-root-pw", 12).result,
-            "mariadb-password": random.RandomPassword("mariadb-pw", 12).result
+            "mariadb-root-password"=random.RandomPassword("mariadb-root-pw", 12).result,
+            "mariadb-password"=random.RandomPassword("mariadb-pw", 12).result
         ],
     opts=provider
 )
