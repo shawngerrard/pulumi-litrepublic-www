@@ -69,6 +69,52 @@ sudo rpi-eeprom-update
 <hr />
 
 
+### Configure Ubuntu Storage Volumes
+By default, the RPI Imager will create a volume on the USB flash disk. If you're happy with this, you can skip this section. Otherwise, you'll need to do some work to mount any attached volumes to the node.
+
+First, attach your storage if it's not already attached. Then check that your filesystem has been mounted automatically - it's quite likely that it hasn't.
+
+```
+# View the list of filesystems currently mounted
+df -h
+
+# View the list of partitions for each filesystem
+lsblk
+```
+
+**If your filesystem has been mounted correctly**, you should see a filesystem labelled _sda1_ or _sdb1_ in the ```df -h``` output. Check filesystem size, partitions, and the data in the mount path to verify the correct filesystem.
+
+**If your filesystem has *not* been mounted correctly**, the filesystem has not mounted successfully, and we will need to perform the following commands on the RPI server:
+
+> **Note:** You can skip the first few commands that erase partitions/filesystems if you do not wish to do this.
+
+```
+# Erase the partitions on the attached volume
+sudo fdisk /dev/<sda/sdb>
+```
+
+You'll see the FormatDisk menu - you'll need to interact with this to _delete_ `(d)` any volume partitions you cannot use.
+
+You can also create a new partition in this menu with the _new_ option `(n)`.
+
+Make this partition the _primary_ partition `(p)`.
+
+Finally, write the partition table to the disk `(w)`.
+
+Once this is done, exit `ctrl+c` and reboot `reboot now`.
+
+## TO DO - FINISH MOUNT INSTRUCTION
+
+```
+# Create a partition on our attached storage
+# NOTE: Ensure you follow the interactive prompts that follow properly to configure the partition
+sudo mkfs.ext4 /dev/sda1
+
+# Create the directory on the volume that will be the default location of the mount path
+cd /mnt/ && sudo mkdir data
+```
+
+
 ### Enable the SSH Service
 1. Check that the SSH service is running.
 ```
