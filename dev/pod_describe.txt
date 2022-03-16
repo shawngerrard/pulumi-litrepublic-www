@@ -1,0 +1,71 @@
+Name:         nginx-ingress-nginx-ingress-controller-8b57c8f8b-5bvhz
+Namespace:    default
+Priority:     0
+Node:         litrepublicpi/192.168.0.125
+Start Time:   Mon, 21 Feb 2022 09:26:14 +1300
+Labels:       app.kubernetes.io/component=controller
+              app.kubernetes.io/instance=nginx-ingress
+              app.kubernetes.io/managed-by=Helm
+              app.kubernetes.io/name=nginx-ingress-controller
+              helm.sh/chart=nginx-ingress-controller-9.0.10
+              pod-template-hash=8b57c8f8b
+Annotations:  <none>
+Status:       Running
+IP:           10.42.0.21
+IPs:
+  IP:           10.42.0.21
+Controlled By:  ReplicaSet/nginx-ingress-nginx-ingress-controller-8b57c8f8b
+Containers:
+  controller:
+    Container ID:  containerd://4ba0e8a34bf1fc4cf85e6b08df31900fe550830e7396c29f59b0b0bbcd385462
+    Image:         docker.io/bitnami/nginx-ingress-controller:1.1.0-debian-10-r0
+    Image ID:      docker.io/bitnami/nginx-ingress-controller@sha256:cf595c5e39ab999fb618952638a58c8bdbf63a1c62045545c4a67c9afedb6a57
+    Ports:         80/TCP, 443/TCP
+    Host Ports:    0/TCP, 0/TCP
+    Args:
+      /nginx-ingress-controller
+      --default-backend-service=default/nginx-ingress-nginx-ingress-controller-default-backend
+      --election-id=ingress-controller-leader
+      --controller-class=k8s.io/ingress-nginx
+      --configmap=default/nginx-ingress-nginx-ingress-controller
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Mon, 21 Feb 2022 09:47:33 +1300
+      Finished:     Mon, 21 Feb 2022 09:47:33 +1300
+    Ready:          False
+    Restart Count:  9
+    Liveness:       http-get http://:10254/healthz delay=10s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:10254/healthz delay=10s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAME:       nginx-ingress-nginx-ingress-controller-8b57c8f8b-5bvhz (v1:metadata.name)
+      POD_NAMESPACE:  default (v1:metadata.namespace)
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-h4xlb (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-h4xlb:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  24m                    default-scheduler  Successfully assigned default/nginx-ingress-nginx-ingress-controller-8b57c8f8b-5bvhz to litrepublicpi
+  Normal   Pulled     23m (x4 over 24m)      kubelet            Container image "docker.io/bitnami/nginx-ingress-controller:1.1.0-debian-10-r0" already present on machine
+  Normal   Created    23m (x4 over 24m)      kubelet            Created container controller
+  Normal   Started    23m (x4 over 24m)      kubelet            Started container controller
+  Warning  BackOff    4m26s (x106 over 24m)  kubelet            Back-off restarting failed container

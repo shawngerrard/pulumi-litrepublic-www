@@ -188,7 +188,7 @@ The current intention of this Raspberry Pi is to run it as a dual master/worker 
 ### Install K3S
 To install K3S, SSH into our proposed node and run:
 ```
-curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --no-deploy traefik
+curl -sfL https://get.k3s.io | sh -s - server --write-kubeconfig-mode 644 --no-deploy traefik --data-dir /mnt/data/k3s/
 ```
 
 ### Configure K3S

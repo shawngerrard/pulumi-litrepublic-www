@@ -1,0 +1,4 @@
+config:
+  litrepublic-www-dev:clusterStackRef: ""
+  litrepublic-www-dev:infraStackRef: shawng/litrepublic-www-dev/www-dev
+  litrepublic-www-dev:isMinikube: "false"

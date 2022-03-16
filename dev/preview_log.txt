@@ -1,0 +1,252 @@
+I0225 12:00:37.429249  427985 backend.go:414] found username for access token
+I0225 12:00:37.642113  427985 backend.go:414] found username for access token
+I0225 12:00:38.739553  427985 update.go:192] *** Starting Update(preview=true) ***
+I0225 12:00:38.740431  427985 plugins.go:76] gatherPluginsFromProgram(): gathering plugins from language host
+I0225 12:00:38.741038  427985 plugins.go:741] GetPluginPath(language, python, <nil>): found on $PATH /home/asterion/.pulumi/bin/pulumi-language-python
+I0225 12:00:38.741212  427985 plugin.go:126] Launching plugin 'python' from '/home/asterion/.pulumi/bin/pulumi-language-python' with args: -virtualenv=venv,-root=/home/asterion/Documents/pulumi-litrepublic-www/dev,127.0.0.1:42881
+I0225 12:00:38.775395  427985 langruntime_plugin.go:207] langhost[python].GetPluginInfo() executing
+I0225 12:00:38.777344  427985 langruntime_plugin.go:115] langhost[python].GetRequiredPlugins(proj=litrepublic-www-dev,pwd=/home/asterion/Documents/pulumi-litrepublic-www/dev,program=.) executing
+I0225 12:00:40.904840  427985 langruntime_plugin.go:157] langhost[python].GetRequiredPlugins(proj=litrepublic-www-dev,pwd=/home/asterion/Documents/pulumi-litrepublic-www/dev,program=.) success: #versions=3
+I0225 12:00:40.905097  427985 plugins.go:88] gatherPluginsFromProgram(): plugin python <nil> () is required by language host
+I0225 12:00:40.905164  427985 plugins.go:88] gatherPluginsFromProgram(): plugin command 0.0.3 () is required by language host
+I0225 12:00:40.905204  427985 plugins.go:88] gatherPluginsFromProgram(): plugin kubernetes 3.15.2 () is required by language host
+I0225 12:00:40.905239  427985 plugins.go:88] gatherPluginsFromProgram(): plugin random 4.3.1 () is required by language host
+I0225 12:00:40.905272  427985 plugins.go:100] gatherPluginsFromSnapshot(): gathering plugins from snapshot
+I0225 12:00:40.905313  427985 plugins.go:137] ensurePluginsAreInstalled(): beginning
+I0225 12:00:40.905580  427985 plugins.go:741] GetPluginPath(language, python, <nil>): found on $PATH /home/asterion/.pulumi/bin/pulumi-language-python
+I0225 12:00:40.905632  427985 plugins.go:142] ensurePluginsAreInstalled(): plugin python <nil> already installed
+I0225 12:00:40.906592  427985 plugins.go:781] GetPluginPath(resource, command, 0.0.3): enabling new plugin behavior
+I0225 12:00:40.906722  427985 plugins.go:863] SelectCompatiblePlugin(..., command): beginning
+I0225 12:00:40.906774  427985 plugins.go:892] SelectCompatiblePlugin(..., command): best plugin command-0.0.3: semver match
+I0225 12:00:40.906809  427985 plugins.go:905] SelectCompatiblePlugin(..., command): selecting plugin 'command-0.0.3': best match 
+I0225 12:00:40.906868  427985 plugins.go:828] GetPluginPath(resource, command, 0.0.3): found in cache at /home/asterion/.pulumi/plugins/resource-command-v0.0.3/pulumi-resource-command
+I0225 12:00:40.906902  427985 plugins.go:142] ensurePluginsAreInstalled(): plugin command 0.0.3 already installed
+I0225 12:00:40.907746  427985 plugins.go:781] GetPluginPath(resource, kubernetes, 3.15.2): enabling new plugin behavior
+I0225 12:00:40.907836  427985 plugins.go:863] SelectCompatiblePlugin(..., kubernetes): beginning
+I0225 12:00:40.907881  427985 plugins.go:896] SelectCompatiblePlugin(..., kubernetes): skipping plugin kubernetes-3.15.0: semver mismatch
+I0225 12:00:40.907918  427985 plugins.go:892] SelectCompatiblePlugin(..., kubernetes): best plugin kubernetes-3.15.2: semver match
+I0225 12:00:40.907952  427985 plugins.go:905] SelectCompatiblePlugin(..., kubernetes): selecting plugin 'kubernetes-3.15.2': best match 
+I0225 12:00:40.908009  427985 plugins.go:828] GetPluginPath(resource, kubernetes, 3.15.2): found in cache at /home/asterion/.pulumi/plugins/resource-kubernetes-v3.15.2/pulumi-resource-kubernetes
+I0225 12:00:40.908045  427985 plugins.go:142] ensurePluginsAreInstalled(): plugin kubernetes 3.15.2 already installed
+I0225 12:00:40.908847  427985 plugins.go:781] GetPluginPath(resource, random, 4.3.1): enabling new plugin behavior
+I0225 12:00:40.908950  427985 plugins.go:863] SelectCompatiblePlugin(..., random): beginning
+I0225 12:00:40.909042  427985 plugins.go:892] SelectCompatiblePlugin(..., random): best plugin random-4.3.1: semver match
+I0225 12:00:40.909077  427985 plugins.go:905] SelectCompatiblePlugin(..., random): selecting plugin 'random-4.3.1': best match 
+I0225 12:00:40.909132  427985 plugins.go:828] GetPluginPath(resource, random, 4.3.1): found in cache at /home/asterion/.pulumi/plugins/resource-random-v4.3.1/pulumi-resource-random
+I0225 12:00:40.909168  427985 plugins.go:142] ensurePluginsAreInstalled(): plugin random 4.3.1 already installed
+I0225 12:00:40.909200  427985 plugins.go:157] ensurePluginsAreInstalled(): completed
+I0225 12:00:40.909341  427985 plugins.go:246] computeDefaultProviderPlugins(): considering python
+I0225 12:00:40.909415  427985 plugins.go:249] computeDefaultProviderPlugins(): skipping python, not a resource provider
+I0225 12:00:40.909449  427985 plugins.go:246] computeDefaultProviderPlugins(): considering command-0.0.3
+I0225 12:00:40.909492  427985 plugins.go:277] computeDefaultProviderPlugins(): plugin command-0.0.3 selected for package command (first seen)
+I0225 12:00:40.909530  427985 plugins.go:246] computeDefaultProviderPlugins(): considering kubernetes-3.15.2
+I0225 12:00:40.909568  427985 plugins.go:277] computeDefaultProviderPlugins(): plugin kubernetes-3.15.2 selected for package kubernetes (first seen)
+I0225 12:00:40.909603  427985 plugins.go:246] computeDefaultProviderPlugins(): considering random-4.3.1
+I0225 12:00:40.909640  427985 plugins.go:277] computeDefaultProviderPlugins(): plugin random-4.3.1 selected for package random (first seen)
+I0225 12:00:40.909825  427985 plugins.go:283] computeDefaultProviderPlugins(): summary of default plugins:
+I0225 12:00:40.909863  427985 plugins.go:285]   command         = 0.0.3
+I0225 12:00:40.909903  427985 plugins.go:285]   kubernetes      = 3.15.2
+I0225 12:00:40.909936  427985 plugins.go:285]   random          = 4.3.1
+I0225 12:00:40.910658  427985 step_generator.go:1097] stepGenerator.GeneratePendingDeletes(): scanning previous snapshot for pending deletes
+I0225 12:00:40.910764  427985 deployment_executor.go:440] deploymentExecutor.retirePendingDeletes(...): no pending deletions
+I0225 12:00:40.910830  427985 langruntime_plugin.go:168] langhost[python].Run(pwd=/home/asterion/Documents/pulumi-litrepublic-www/dev,program=.,#args=0,proj=litrepublic-www-dev,stack=www-dev,#config=3,dryrun=true) executing
+I0225 12:00:40.910876  427985 step_executor.go:364] StepExecutor worker(-2): worker coming online
+I0225 12:00:40.910931  427985 step_executor.go:364] StepExecutor worker(-2): worker waiting for incoming chains
+I0225 12:00:40.910848  427985 deployment_executor.go:221] deploymentExecutor.Execute(...): waiting for incoming events
+I0225 12:00:41.446336  427985 eventsink.go:59] registering resource: ty=pulumi:pulumi:Stack, name=litrepublic-www-dev-www-dev, custom=False, remote=False
+I0225 12:00:41.446493  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=pulumi:pulumi:Stack, name=litrepublic-www-dev-www-dev, custom=False, remote=False<{%reset%}>)
+I0225 12:00:42.586374  427985 eventsink.go:59] reading resource: ty=pulumi:pulumi:StackReference, name=shawng/litrepublic-www-dev/www-dev, id=shawng/litrepublic-www-dev/www-dev
+I0225 12:00:42.586529  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>reading resource: ty=pulumi:pulumi:StackReference, name=shawng/litrepublic-www-dev/www-dev, id=shawng/litrepublic-www-dev/www-dev<{%reset%}>)
+I0225 12:00:42.596575  427985 eventsink.go:59] registering resource: ty=kubernetes:apps/v1:Deployment, name=nginx, custom=True, remote=False
+I0225 12:00:42.596699  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=kubernetes:apps/v1:Deployment, name=nginx, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.599557  427985 eventsink.go:59] registering resource: ty=kubernetes:core/v1:Service, name=nginx, custom=True, remote=False
+I0225 12:00:42.599675  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=kubernetes:core/v1:Service, name=nginx, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.602352  427985 eventsink.go:59] registering resource: ty=pulumi:providers:kubernetes, name=kubernetes_provider, custom=True, remote=False
+I0225 12:00:42.602530  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=pulumi:providers:kubernetes, name=kubernetes_provider, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.605750  427985 eventsink.go:59] registering resource: ty=random:index/randomPassword:RandomPassword, name=mariadb-root-password, custom=True, remote=False
+I0225 12:00:42.605891  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=random:index/randomPassword:RandomPassword, name=mariadb-root-password, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.608916  427985 eventsink.go:59] registering resource: ty=random:index/randomPassword:RandomPassword, name=mariadb-password, custom=True, remote=False
+I0225 12:00:42.609024  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=random:index/randomPassword:RandomPassword, name=mariadb-password, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.612189  427985 eventsink.go:59] registering resource: ty=random:index/randomPassword:RandomPassword, name=wordpress-pw, custom=True, remote=False
+I0225 12:00:42.612298  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=random:index/randomPassword:RandomPassword, name=wordpress-pw, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.615950  427985 eventsink.go:59] registering resource: ty=kubernetes:core/v1:Secret, name=mariadb, custom=True, remote=False
+I0225 12:00:42.616081  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=kubernetes:core/v1:Secret, name=mariadb, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.619315  427985 eventsink.go:59] registering resource: ty=kubernetes:core/v1:Secret, name=wordpress, custom=True, remote=False
+I0225 12:00:42.619420  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=kubernetes:core/v1:Secret, name=wordpress, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.622075  427985 eventsink.go:59] registering resource: ty=kubernetes:core/v1:ConfigMap, name=mariadb, custom=True, remote=False
+I0225 12:00:42.622209  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>registering resource: ty=kubernetes:core/v1:ConfigMap, name=mariadb, custom=True, remote=False<{%reset%}>)
+I0225 12:00:42.624721  427985 eventsink.go:59] Waiting for outstanding RPCs to complete
+I0225 12:00:42.624822  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>Waiting for outstanding RPCs to complete<{%reset%}>)
+I0225 12:00:42.626150  427985 eventsink.go:59] RPCs successfully completed
+I0225 12:00:42.626259  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>RPCs successfully completed<{%reset%}>)
+I0225 12:00:42.629109  427985 eventsink.go:59] Waiting for 262 outstanding tasks to complete
+I0225 12:00:42.629248  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>Waiting for 262 outstanding tasks to complete<{%reset%}>)
+I0225 12:00:42.633281  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.633382  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.634991  427985 eventsink.go:59] beginning rpc read resource
+I0225 12:00:42.635101  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc read resource<{%reset%}>)
+I0225 12:00:42.643417  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.643524  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.645306  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.645410  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.646964  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.647066  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.648576  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.648718  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.650305  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.650476  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.652001  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.652107  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.654163  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.654262  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.656223  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.656334  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.657811  427985 eventsink.go:59] beginning rpc register resource
+I0225 12:00:42.657906  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource<{%reset%}>)
+I0225 12:00:42.659572  427985 eventsink.go:59] beginning rpc register resource outputs
+I0225 12:00:42.659669  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>beginning rpc register resource outputs<{%reset%}>)
+I0225 12:00:42.661289  427985 eventsink.go:59] resource registration prepared: ty=pulumi:pulumi:Stack, name=litrepublic-www-dev-www-dev
+I0225 12:00:42.661383  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>resource registration prepared: ty=pulumi:pulumi:Stack, name=litrepublic-www-dev-www-dev<{%reset%}>)
+I0225 12:00:42.713041  427985 eventsink.go:59] exception when preparing or executing rpc: Traceback (most recent call last):
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 514, in do_register
+    resolver = await prepare_resource(res, ty, custom, remote, props, opts, typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 124, in prepare_resource
+    serialized_props = await rpc.serialize_properties(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 172, in serialize_properties
+    result = await serialize_property(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 224, in serialize_property
+    element_type = _get_list_element_type(typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 127, in _get_list_element_type
+    raise AssertionError(f"Unexpected type. Expected 'list' got '{typ}'")
+AssertionError: Unexpected type. Expected 'list' got 'typing.Mapping[str, typing.Union[str, typing.Awaitable[str], pulumi.output.Output[NoneType]]]'
+I0225 12:00:42.713212  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>exception when preparing or executing rpc: Traceback (most recent call last):
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 514, in do_register
+    resolver = await prepare_resource(res, ty, custom, remote, props, opts, typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 124, in prepare_resource
+    serialized_props = await rpc.serialize_properties(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 172, in serialize_properties
+    result = await serialize_property(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 224, in serialize_property
+    element_type = _get_list_element_type(typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 127, in _get_list_element_type
+    raise AssertionError(f"Unexpected type. Expected 'list' got '{typ}'")
+AssertionError: Unexpected type. Expected 'list' got 'typing.Mapping[str, typing.Union[str, typing.Awaitable[str], pulumi.output.Output[NoneType]]]'
+<{%reset%}>)
+I0225 12:00:42.717937  427985 eventsink.go:59] RPC failed with exception:
+I0225 12:00:42.718050  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>RPC failed with exception:<{%reset%}>)
+I0225 12:00:42.721159  427985 eventsink.go:59] Traceback (most recent call last):
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc_manager.py", line 68, in rpc_wrapper
+    result = await rpc
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  [Previous line repeated 5 more times]
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 514, in do_register
+    resolver = await prepare_resource(res, ty, custom, remote, props, opts, typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 124, in prepare_resource
+    serialized_props = await rpc.serialize_properties(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 172, in serialize_properties
+    result = await serialize_property(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 224, in serialize_property
+    element_type = _get_list_element_type(typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 127, in _get_list_element_type
+    raise AssertionError(f"Unexpected type. Expected 'list' got '{typ}'")
+AssertionError: Unexpected type. Expected 'list' got 'typing.Mapping[str, typing.Union[str, typing.Awaitable[str], pulumi.output.Output[NoneType]]]'
+I0225 12:00:42.721315  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>Traceback (most recent call last):
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc_manager.py", line 68, in rpc_wrapper
+    result = await rpc
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  [Previous line repeated 5 more times]
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 514, in do_register
+    resolver = await prepare_resource(res, ty, custom, remote, props, opts, typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 124, in prepare_resource
+    serialized_props = await rpc.serialize_properties(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 172, in serialize_properties
+    result = await serialize_property(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 224, in serialize_property
+    element_type = _get_list_element_type(typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 127, in _get_list_element_type
+    raise AssertionError(f"Unexpected type. Expected 'list' got '{typ}'")
+AssertionError: Unexpected type. Expected 'list' got 'typing.Mapping[str, typing.Union[str, typing.Awaitable[str], pulumi.output.Output[NoneType]]]'
+<{%reset%}>)
+I0225 12:00:42.757870  427985 eventsink.go:59] Cancelling 220 remaining tasks.
+I0225 12:00:42.757985  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>Cancelling 220 remaining tasks.<{%reset%}>)
+I0225 12:00:42.760814  427985 eventsink.go:59] A future resolved in an exception, raising exception.
+I0225 12:00:42.760919  427985 eventsink.go:62] eventSink::Debug(<{%reset%}>A future resolved in an exception, raising exception.<{%reset%}>)
+I0225 12:00:42.764980  427985 eventsink.go:86] eventSink::Error(<{%reset%}>Program failed with an unhandled exception:<{%reset%}>)
+I0225 12:00:42.770766  427985 eventsink.go:86] eventSink::Error(<{%reset%}>Traceback (most recent call last):
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/stack.py", line 49, in run_pulumi_func
+    func()
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/stack.py", line 126, in <lambda>
+    await run_pulumi_func(lambda: Stack(func))
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/stack.py", line 149, in __init__
+    func()
+  File "/home/asterion/.pulumi/bin/pulumi-language-python-exec", line 106, in <lambda>
+    coro = pulumi.runtime.run_in_stack(lambda: runpy.run_path(args.PROGRAM, run_name='__main__'))
+  File "/usr/lib/python3.9/runpy.py", line 285, in run_path
+    return _run_code(code, mod_globals, init_globals,
+  File "/usr/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/./__main__.py", line 119, in <module>
+    spec=PersistentVolumeClaimSpecArgs(
+NameError: name 'PersistentVolumeClaimSpecArgs' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/asterion/.pulumi/bin/pulumi-language-python-exec", line 107, in <module>
+    loop.run_until_complete(coro)
+  File "/usr/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/stack.py", line 126, in run_in_stack
+    await run_pulumi_func(lambda: Stack(func))
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/stack.py", line 51, in run_pulumi_func
+    await wait_for_rpcs()
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/stack.py", line 110, in wait_for_rpcs
+    raise exception
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc_manager.py", line 68, in rpc_wrapper
+    result = await rpc
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/output.py", line 98, in is_value_known
+    return await is_known and not contains_unknowns(await future)
+  [Previous line repeated 5 more times]
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 514, in do_register
+    resolver = await prepare_resource(res, ty, custom, remote, props, opts, typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/resource.py", line 124, in prepare_resource
+    serialized_props = await rpc.serialize_properties(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 172, in serialize_properties
+    result = await serialize_property(
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 224, in serialize_property
+    element_type = _get_list_element_type(typ)
+  File "/home/asterion/Documents/pulumi-litrepublic-www/dev/venv/lib/python3.9/site-packages/pulumi/runtime/rpc.py", line 127, in _get_list_element_type
+    raise AssertionError(f"Unexpected type. Expected 'list' got '{typ}'")
+AssertionError: Unexpected type. Expected 'list' got 'typing.Mapping[str, typing.Union[str, typing.Awaitable[str], pulumi.output.Output[NoneType]]]'
+<{%reset%}>)
+I0225 12:00:43.055571  427985 langruntime_plugin.go:200] langhost[python].RunPlan(pwd=/home/asterion/Documents/pulumi-litrepublic-www/dev,program=.,...,dryrun=true) success: progerr=Program exited with non-zero exit code: 1
+I0225 12:00:43.058786  427985 source_eval.go:186] EvalSourceIterator ended with an error: an unhandled error occurred: Program exited with non-zero exit code: 1
+I0225 12:00:43.058923  427985 deployment_executor.go:225] deploymentExecutor.Execute(...): incoming event (nil? true, Error: an unhandled error occurred: Program exited with non-zero exit code: 1)
+I0225 12:00:43.058987  427985 eventsink.go:86] eventSink::Error(<{%reset%}>an unhandled error occurred: Program exited with non-zero exit code: 1<{%reset%}>)
+I0225 12:00:43.059058  427985 step_executor.go:364] StepExecutor worker(-1): StepExecutor.waitForCompletion(): waiting for worker threads to exit
+I0225 12:00:43.059100  427985 step_executor.go:364] StepExecutor worker(-2): worker exiting due to cancellation
+I0225 12:00:43.059155  427985 step_executor.go:364] StepExecutor worker(-1): StepExecutor.waitForCompletion(): worker threads all exited
+I0225 12:00:43.059192  427985 deployment_executor.go:269] deploymentExecutor.Execute(...): step executor has completed
+I0225 12:00:43.059294  427985 ignore.go:44] Explicitly ignoring and discarding error: rpc error: code = Canceled desc = grpc: the client connection is closing
+I0225 12:00:43.059487  427985 deployment_executor.go:132] deploymentExecutor.Execute(...): exiting provider canceller
+I0225 12:00:43.059517  427985 update.go:195] *** Update(preview=true) complete ***
+I0225 12:00:43.513384  427985 sink.go:162] defaultSink::Warning([38;5;3mwarning: [0m[0mA new version of Pulumi is available. To upgrade from version '3.24.1' to '3.25.0', run 
+   $ curl -sSL https://get.pulumi.com | sh
+or visit https://pulumi.com/docs/reference/install/ for manual instructions and release notes.[0m)
+[38;5;3mwarning: [0m[0mA new version of Pulumi is available. To upgrade from version '3.24.1' to '3.25.0', run 
+   $ curl -sSL https://get.pulumi.com | sh
+or visit https://pulumi.com/docs/reference/install/ for manual instructions and release notes.[0m
