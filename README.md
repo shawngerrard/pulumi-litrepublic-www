@@ -162,7 +162,8 @@ sudo systemctl status sshd
 
 ### Enable SSH remote access on a specific port at the internet gateway.
 1. Log in to router.
-2. Open an external port <PORT NUMBER> on RPI external IP 124.248.134.230.
+2. Open an external port <PORT NUMBER> to RPI external IP <RPI EXTERNAL IP>.
+> **Note:** You will need to obtain the external IP from your ISP or from an external server (I.E `curl https://checkip.amazonaws.com/`).
 3. Forward to internal port 22.
 4. Apply changes.
 
